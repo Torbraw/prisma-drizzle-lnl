@@ -10,12 +10,14 @@ async function bootstrap() {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     logger: (process.env.NEST_LOGGER_LEVELS?.split(',') as LogLevel[]) ?? ['error'],
   });
+
   const httpAdapterHost = app.get(HttpAdapterHost);
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapterHost));
 
   if (process.env.NODE_ENV !== 'production') {
     app.useGlobalInterceptors(new LoggingInterceptor());
   }
+
   await app.listen(3000);
 }
 
