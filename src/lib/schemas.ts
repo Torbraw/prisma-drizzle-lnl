@@ -12,7 +12,7 @@ import {
   boolean,
   optional,
   omit,
-  intersect,
+  partial,
 } from 'valibot';
 
 const defaultString = (v = 191) =>
@@ -28,11 +28,11 @@ const defaultPositiveNumber = (v = 2147483647) =>
 
 const passwordValidation = pipe(
   string(),
-  minLength(8, 'Password must be at least 8 characters'),
-  maxLength(191, 'Password must be at most 191 characters'),
+  minLength(8, 'Must be at least 8 characters'),
+  maxLength(191, 'Must be at most 191 characters'),
   regex(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-    'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+    'Must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
   ),
 );
 
@@ -46,7 +46,6 @@ const userInfoSchema = object({
 export const PrismaCreateUserSchema = object({
   email: defaultString(),
   password: passwordValidation,
-  isActive: boolean(),
   role: object({
     connect: object({
       id: defaultPositiveNumber(),
@@ -57,9 +56,12 @@ export const PrismaCreateUserSchema = object({
   }),
 });
 
-export const PrismaUpdateUserSchema = object({
-  ...omit(PrismaCreateUserSchema, ['password']).entries,
-  userInfo: object({
-    update: userInfoSchema,
+export const PrismaUpdateUserSchema = partial(
+  object({
+    ...omit(PrismaCreateUserSchema, ['password']).entries,
+    userInfo: object({
+      update: userInfoSchema,
+    }),
+    isActive: boolean(),
   }),
-});
+);

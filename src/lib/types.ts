@@ -1,3 +1,4 @@
+import { PrismaUserWithRelationsInclude } from './const';
 import { Prisma } from '@prisma/client';
 import { InferOutput } from 'valibot';
 import { PrismaCreateUserSchema, PrismaUpdateUserSchema } from './schemas';
@@ -10,12 +11,16 @@ export type ExceptionResponse = {
   code?: string;
 };
 
-export type CreateUser = Satisfies<
+export type PrismaUserWithRelations = Prisma.UserGetPayload<{
+  include: typeof PrismaUserWithRelationsInclude;
+}>;
+
+export type PrismaCreateUser = Satisfies<
   InferOutput<typeof PrismaCreateUserSchema>,
   Omit<Prisma.UserCreateInput, 'createdBy' | 'updatedAt'>
 >;
 
-export type UpdateUser = Satisfies<
+export type PrismaUpdateUser = Satisfies<
   InferOutput<typeof PrismaUpdateUserSchema>,
   Omit<Prisma.UserUpdateInput, 'updatedAt'>
 >;

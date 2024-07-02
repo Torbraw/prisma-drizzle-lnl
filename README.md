@@ -4,23 +4,11 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## List
 
-- CRUD
-- One to one
-- One to many
-- Many to many
-- Deep relations
 - Plain SQL queries
-- Validations
 - Transactions
 - Pagination
-- Migrations
 - Swagger
-- Seeder
 - Return only specific fields, retreive fields but not return them
-
-- mysql docker
-- nestjs prisma vs nestjs drizzle (same project)
-- If time, do another backend with elysia + drizzle
 
 ## Prisma
 
