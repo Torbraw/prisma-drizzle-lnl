@@ -21,6 +21,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 - `npx prisma migrate reset` will reset the database and apply all migrations and seed data
 - `npx prisma db push` will apply the schema to the database without migration, useful for prototyping locally before using migrations [docs](https://www.prisma.io/docs/orm/prisma-migrate/workflows/prototyping-your-schema)
 - How to do down migrations [docs](https://www.prisma.io/docs/orm/prisma-migrate/workflows/generating-down-migrations)
+- Lots of community generators [here](https://www.prisma.io/docs/orm/prisma-schema/overview/generators#community-generators)
 
 ## Drizzle
 
