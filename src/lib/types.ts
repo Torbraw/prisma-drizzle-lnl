@@ -21,6 +21,12 @@ export type PrismaUserWithAge = Omit<PrismaUserWithRelations, 'userInfo'> & {
   };
 };
 
+export type PrismaUserWithMaturity = PrismaUserWithRelations & {
+  userInfo: {
+    maturity: 'MINOR' | 'ADULT';
+  };
+};
+
 export type PrismaCreateUser = Satisfies<
   InferOutput<typeof PrismaCreateUserSchema>,
   Omit<Prisma.UserCreateInput, 'createdBy' | 'updatedAt'>

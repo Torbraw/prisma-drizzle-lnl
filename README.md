@@ -4,7 +4,6 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## List
 
-- Plain SQL queries
 - Transactions
 - Pagination
 - Swagger

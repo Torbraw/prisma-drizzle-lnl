@@ -30,4 +30,9 @@ export class UsersController {
   public async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.usersService.findOne(id);
   }
+
+  @Get('maturity')
+  public async findAllWithMaturity() {
+    return await this.usersService.findAllWithMaturity();
+  }
 }
