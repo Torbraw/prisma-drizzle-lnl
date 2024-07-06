@@ -60,7 +60,7 @@ export const PrismaUpdateUserSchema = partial(
   object({
     ...omit(PrismaCreateUserSchema, ['password']).entries,
     userInfo: object({
-      update: userInfoSchema,
+      update: partial(userInfoSchema),
     }),
     isActive: boolean(),
   }),

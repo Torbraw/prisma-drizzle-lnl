@@ -8,7 +8,6 @@ Prisma &amp; Drizzle lunch &amp; learn
 - Transactions
 - Pagination
 - Swagger
-- Return only specific fields, retreive fields but not return them
 
 ## Prisma
 

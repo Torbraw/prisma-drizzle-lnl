@@ -15,6 +15,12 @@ export type PrismaUserWithRelations = Prisma.UserGetPayload<{
   include: typeof PrismaUserWithRelationsInclude;
 }>;
 
+export type PrismaUserWithAge = Omit<PrismaUserWithRelations, 'userInfo'> & {
+  userInfo: Omit<PrismaUserWithRelations['userInfo'], 'birthYear'> & {
+    age: number;
+  };
+};
+
 export type PrismaCreateUser = Satisfies<
   InferOutput<typeof PrismaCreateUserSchema>,
   Omit<Prisma.UserCreateInput, 'createdBy' | 'updatedAt'>
@@ -22,5 +28,5 @@ export type PrismaCreateUser = Satisfies<
 
 export type PrismaUpdateUser = Satisfies<
   InferOutput<typeof PrismaUpdateUserSchema>,
-  Omit<Prisma.UserUpdateInput, 'updatedAt'>
+  Omit<Prisma.UserUpdateInput, 'createdBy' | 'updatedAt'>
 >;
