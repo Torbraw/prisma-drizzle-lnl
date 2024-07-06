@@ -4,12 +4,14 @@ import { createHash } from 'crypto';
 import { PrismaUserWithRelationsInclude } from 'src/lib/const';
 import { PrismaService } from 'src/lib/prisma/prisma.service';
 import {
+  PaginationQuery,
   PrismaCreateUser,
   PrismaUpdateUser,
   PrismaUserWithAge,
   PrismaUserWithMaturity,
   PrismaUserWithRelations,
 } from 'src/lib/types';
+import { getPrismaArgsFromQuery } from 'src/lib/utils';
 
 @Injectable()
 export class UsersService {
@@ -23,6 +25,7 @@ export class UsersService {
 
     const hashPassword = createHash('sha256').update(data.password).digest('hex');
     data.password = hashPassword;
+    // Note: Nested writes & Bulk actions create a transaction automatically
     return await this.prisma.user.create({ data, include: PrismaUserWithRelationsInclude });
   }
 
@@ -30,8 +33,17 @@ export class UsersService {
     return await this.prisma.user.update({ where: { id }, data, include: PrismaUserWithRelationsInclude });
   }
 
-  public async findAll() {
-    return await this.prisma.user.findMany();
+  public async findAll(query: PaginationQuery) {
+    const findManyArgs = getPrismaArgsFromQuery(query);
+
+    const [users, count] = await this.prisma.$transaction([
+      this.prisma.user.findMany(findManyArgs),
+      this.prisma.user.count(),
+    ]);
+    return {
+      users,
+      count,
+    };
   }
 
   public async findOne(id: number): Promise<PrismaUserWithAge> {

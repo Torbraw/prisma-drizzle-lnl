@@ -4,8 +4,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## List
 
-- Transactions
-- Pagination
+- Filtering & Sorting
 - Swagger
 
 ## Prisma

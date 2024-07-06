@@ -1,9 +1,9 @@
 import { PipeTransform, ArgumentMetadata, BadRequestException } from '@nestjs/common';
-import { ObjectSchema, ValiError, flatten, parse } from 'valibot';
+import { BaseIssue, BaseSchema, ValiError, flatten, parse } from 'valibot';
 
-export class ValibotValidationPipe implements PipeTransform {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public constructor(private schema: ObjectSchema<any, any>) {}
+// eslint-disable-next-line prettier/prettier
+export class ValibotValidationPipe<T extends BaseSchema<unknown, unknown, BaseIssue<unknown>>> implements PipeTransform {
+  public constructor(private readonly schema: T) {}
 
   public transform(value: unknown, _metadata: ArgumentMetadata) {
     try {

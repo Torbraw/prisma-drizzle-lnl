@@ -13,6 +13,7 @@ import {
   optional,
   omit,
   partial,
+  transform,
 } from 'valibot';
 
 const defaultString = (v = 191) =>
@@ -64,4 +65,13 @@ export const PrismaUpdateUserSchema = partial(
     }),
     isActive: boolean(),
   }),
+);
+
+export const PaginationQuerySchema = optional(
+  partial(
+    object({
+      page: pipe(string(), transform(Number), defaultPositiveNumber(), minValue(1, 'Must be at least 1')),
+      limit: pipe(string(), transform(Number), defaultPositiveNumber(100)),
+    }),
+  ),
 );
