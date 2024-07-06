@@ -38,9 +38,9 @@ export class UsersService {
 
     // Don't return birthYear but return age
     const age = new Date().getFullYear() - result.userInfo.birthYear;
-    const userInfo = { ...result.userInfo } as Partial<PrismaUserWithRelations['userInfo']>;
+    const userInfo = { ...result.userInfo } as Omit<typeof result.userInfo, 'birthYear'> & { birthYear: never };
     delete userInfo.birthYear;
 
-    return { ...result, userInfo: { ...userInfo, age } } as PrismaUserWithAge;
+    return { ...result, userInfo: { ...userInfo, age } };
   }
 }
