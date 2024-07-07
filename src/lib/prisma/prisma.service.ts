@@ -10,7 +10,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
           password: true,
         },
       },
-      //log: ['query'],
+      log: ['query'],
     });
   }
 
