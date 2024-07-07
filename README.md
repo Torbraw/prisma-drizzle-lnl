@@ -2,9 +2,35 @@
 
 Prisma &amp; Drizzle lunch &amp; learn
 
+## What's included
+
+### Global (for both Prisma & Drizzle)
+
+- Docker compose with mysql database
+- Table User, UserInfo, Role & Permission (all types of relationships)
+- Automatically omit password field from User
+- Logger to log time spent on each request
+- Exception filter with custom error response
+- Custom decorators for validation with [valibot](https://valibot.dev/) schemas
+- Inherit types from schemas
+- Seeder to seed the database with data
+- Migrations
+- CRUD operations
+- Raw queries `findAllWithMaturity()`
+- Transactions `findAll()`
+- Exclude fields from response `findOne()`
+- Add fields to response `findOne()`
+- Search with pagination `findAll()`
+
+### Prisma
+
+- Auto logging of Prisma queries<
+- Satifies schemas types with Prisma types
+
 ## List
 
 - Filtering & Sorting
+- Search
 - Swagger
 
 ## Prisma
