@@ -6,3 +6,5 @@ export const PrismaUserWithRelationsInclude = {
   },
   userInfo: true,
 } satisfies Prisma.UserInclude;
+
+export const SORT_REGEX = /^([A-z]+\.)*([A-z]+){1}:{1}(asc|desc){1}$/;

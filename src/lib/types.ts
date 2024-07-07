@@ -1,7 +1,7 @@
 import { PrismaUserWithRelationsInclude } from './const';
 import { Prisma } from '@prisma/client';
 import { InferOutput } from 'valibot';
-import { PaginationQuerySchema, PrismaCreateUserSchema, PrismaUpdateUserSchema } from './schemas';
+import { SearchQuerySchema, PrismaCreateUserSchema, PrismaUpdateUserSchema } from './schemas';
 
 type Satisfies<T extends U, U> = T;
 
@@ -37,4 +37,4 @@ export type PrismaUpdateUser = Satisfies<
   Omit<Prisma.UserUpdateInput, 'createdBy' | 'updatedAt'>
 >;
 
-export type PaginationQuery = InferOutput<typeof PaginationQuerySchema>;
+export type SearchQuery = InferOutput<typeof SearchQuerySchema>;

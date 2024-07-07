@@ -20,7 +20,8 @@ Prisma &amp; Drizzle lunch &amp; learn
 - Transactions `findAll()`
 - Exclude fields from response `findOne()`
 - Add fields to response `findOne()`
-- Search with pagination `findAll()`
+- Search with pagination `findAll()` & `getPrismaArgsFromQuery()` fully typesafe
+- Sorting `findAll()` & `getPrismaArgsFromQuery()` almost fully typesafe
 
 ### Prisma
 
@@ -29,7 +30,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## List
 
-- Filtering & Sorting
+- Filtering
 - Search
 - Swagger
 
