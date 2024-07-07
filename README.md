@@ -1,4 +1,4 @@
-# prisma-drizzle-lnl
+# prisma-drizzle-lnl (WIP)
 
 Prisma &amp; Drizzle lunch &amp; learn
 
