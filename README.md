@@ -20,19 +20,13 @@ Prisma &amp; Drizzle lunch &amp; learn
 - Transactions `findAll()`
 - Exclude fields from response `findOne()`
 - Add fields to response `findOne()`
-- Search with pagination `findAll()` & `getPrismaArgsFromQuery()` fully typesafe
-- Sorting `findAll()` & `getPrismaArgsFromQuery()` almost fully typesafe
+- Generic Pagination `findAll()` & `getPrismaArgsFromQuery()` fully typesafe
+- Generic Sorting `findAll()` & `getPrismaArgsFromQuery()` almost fully typesafe
 
 ### Prisma
 
 - Auto logging of Prisma queries<
 - Satifies schemas types with Prisma types
-
-## List
-
-- Filtering
-- Search
-- Swagger
 
 ## Prisma
 
@@ -56,3 +50,10 @@ Prisma &amp; Drizzle lunch &amp; learn
 - See seeding
 - See schemas differences
 - See queries differences (transactions, raw queries, pagination, relations, etc)
+
+## TODO
+
+- Filtering
+- Search
+- Swagger
+- Drizzle
