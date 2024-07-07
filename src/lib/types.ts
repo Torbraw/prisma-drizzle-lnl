@@ -15,6 +15,8 @@ export type SortOrder = 'asc' | 'desc';
 
 export type NestedSortOrder = { [key: string]: NestedSortOrder | SortOrder };
 
+export type SearchQuery = InferOutput<typeof SearchQuerySchema>;
+
 export type PrismaUserWithRelations = Prisma.UserGetPayload<{
   include: typeof PrismaUserWithRelationsInclude;
 }>;
@@ -40,5 +42,3 @@ export type PrismaUpdateUser = Satisfies<
   InferOutput<typeof PrismaUpdateUserSchema>,
   Omit<Prisma.UserUpdateInput, 'createdBy' | 'updatedAt'>
 >;
-
-export type SearchQuery = InferOutput<typeof SearchQuerySchema>;

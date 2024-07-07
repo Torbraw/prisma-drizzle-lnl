@@ -21,7 +21,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 - Exclude fields from response `findOne()`
 - Add fields to response `findOne()`
 - Generic Pagination `findAll()` & `getPrismaArgsFromQuery()` fully typesafe
-- Generic Sorting `findAll()` & `getPrismaArgsFromQuery()` almost fully typesafe
+- Generic Sorting `findAll()` & `getPrismaArgsFromQuery()` almwost fully typesafe (keys are not)
 
 ### Prisma
 

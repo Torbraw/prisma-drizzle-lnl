@@ -22,12 +22,6 @@ export const getPrismaArgsFromQuery = (query: SearchQuery) => {
   return args;
 };
 
-// /**
-//  * @param keysValues All the valid keys separated by '|'
-//  * @returns A regex that matches the format of a sort query
-//  */
-// export const getSortRegex = (keysValues: string) => `^(${keysValues}+\.)*(${keysValues}+){1}:{1}(asc|desc){1}$`;
-
 export const formatSort = (sort: string) => {
   const arr = sort.split(':');
   return formatSortKey(arr[0], arr[1] as SortOrder);
@@ -46,3 +40,9 @@ export const formatSortKey = (key: string, value: SortOrder): NestedSortOrder =>
   }
   return { [key]: value };
 };
+
+// /**
+//  * @param keysValues All the valid keys separated by '|'
+//  * @returns A regex that matches the format of a sort query
+//  */
+// export const getSortRegex = (keysValues: string) => `^(${keysValues}+\.)*(${keysValues}+){1}:{1}(asc|desc){1}$`;
