@@ -37,7 +37,12 @@ export class UsersService {
     const findManyArgs = getPrismaArgsFromQuery(query);
 
     const [users, count] = await this.prisma.$transaction([
-      this.prisma.user.findMany(findManyArgs),
+      this.prisma.user.findMany({
+        ...findManyArgs,
+        include: {
+          userInfo: true,
+        },
+      }),
       this.prisma.user.count(),
     ]);
     return {
