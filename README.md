@@ -43,13 +43,15 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## Drizzle
 
-## L&L
+## Lunch & Learn Agenda
 
 - See validations
 - See studio
 - See seeding
 - See schemas differences
 - See queries differences (transactions, raw queries, pagination, relations, etc)
+- See generic pagination
+- See generic sorting
 
 ## TODO
 
