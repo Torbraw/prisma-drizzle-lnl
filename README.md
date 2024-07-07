@@ -20,13 +20,13 @@ Prisma &amp; Drizzle lunch &amp; learn
 - Transactions `findAll()`
 - Exclude fields from response `findOne()`
 - Add fields to response `findOne()`
-- Generic Pagination `findAll()` & `getPrismaArgsFromQuery()` fully typesafe
-- Generic Sorting `findAll()` & `getPrismaArgsFromQuery()` almwost fully typesafe (keys are not)
 
 ### Prisma
 
-- Auto logging of Prisma queries<
+- Auto logging of Prisma queries
 - Satifies schemas types with Prisma types
+- Generic Pagination `findAll()` & `getPrismaArgsFromQuery()` fully typesafe
+- Generic Sorting `findAll()` & `getPrismaArgsFromQuery()` almwost fully typesafe (keys are not)
 
 ## Prisma
 
