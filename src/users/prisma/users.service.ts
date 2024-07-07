@@ -41,11 +41,6 @@ export class UsersService {
         ...findManyArgs,
         include: {
           userInfo: true,
-          role: {
-            include: {
-              permissions: true,
-            },
-          },
         },
       }),
       this.prisma.user.count(),
