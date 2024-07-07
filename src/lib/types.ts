@@ -11,6 +11,10 @@ export type ExceptionResponse = {
   code?: string;
 };
 
+export type SortOrder = 'asc' | 'desc';
+
+export type NestedSortOrder = { [key: string]: NestedSortOrder | SortOrder };
+
 export type PrismaUserWithRelations = Prisma.UserGetPayload<{
   include: typeof PrismaUserWithRelationsInclude;
 }>;

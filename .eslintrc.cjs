@@ -11,7 +11,7 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:@typescript-eslint/strict-type-checked',
-    'plugin:@typescript-eslint/stylistic-type-checked'
+    'plugin:@typescript-eslint/stylistic-type-checked',
   ],
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
@@ -35,6 +35,7 @@ module.exports = {
     '@typescript-eslint/consistent-type-definitions': 'off',
     '@typescript-eslint/no-extraneous-class': 'off',
     '@typescript-eslint/non-nullable-type-assertion-style': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {
@@ -44,10 +45,5 @@ module.exports = {
       },
     ],
   },
-  ignorePatterns: [
-    'node_modules',
-    'dist',
-    '.eslintrc.cjs',
-    'prettier.config.cjs',
-  ]
+  ignorePatterns: ['node_modules', 'dist', '.eslintrc.cjs', 'prettier.config.cjs'],
 };

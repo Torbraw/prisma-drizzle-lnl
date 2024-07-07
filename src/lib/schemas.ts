@@ -18,6 +18,7 @@ import {
   mapItems,
 } from 'valibot';
 import { SORT_REGEX } from './const';
+import { formatSort } from './utils';
 
 const defaultString = (v = 191) =>
   pipe(string(), minLength(1, 'Must not be empty'), maxLength(v, `Exceeds max length of ${toString()}`));
@@ -55,12 +56,7 @@ const searchQuery = object({
     transform((i) => i.split(';')),
     maxLength(5, 'Must not exceed 5 elements'),
     checkItems((i) => SORT_REGEX.test(i), `Must match regex ${SORT_REGEX.toString()}`),
-    mapItems((i) => {
-      const a = i.split(':');
-      return {
-        [a[0]]: a[1] as 'asc' | 'desc',
-      };
-    }),
+    mapItems((i) => formatSort(i)),
   ),
 });
 
