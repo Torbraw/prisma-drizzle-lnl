@@ -36,8 +36,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
     if (exception instanceof Prisma.PrismaClientKnownRequestError) {
       responseBody = {
         statusCode: HttpStatus.BAD_REQUEST,
-        message: 'Bad Request',
+        message: 'Bad Request | PrismaClientKnownRequestError',
         code: exception.code,
+      };
+    }
+
+    if (exception instanceof Prisma.PrismaClientValidationError) {
+      responseBody = {
+        statusCode: HttpStatus.BAD_REQUEST,
+        message: 'Bad Request | PrismaClientValidationError',
       };
     }
 

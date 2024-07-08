@@ -77,14 +77,13 @@ export const PrismaUpdateUserSchema = partial(
   }),
 );
 
-const prismaSort = () =>
-  pipe(
-    string(),
-    transform((i) => i.split(';')),
-    maxLength(5, 'Must not exceed 5 elements'),
-    checkItems((i) => SORT_REGEX.test(i), `Must match regex ${SORT_REGEX.toString()}`),
-    mapItems((i) => formatPrismaSort(i)),
-  );
+const prismaSort = pipe(
+  string(),
+  transform((i) => i.split(';')),
+  maxLength(5, 'Must not exceed 5 elements'),
+  checkItems((i) => SORT_REGEX.test(i), `Must match regex ${SORT_REGEX.toString()}`),
+  mapItems((i) => formatPrismaSort(i)),
+);
 
-export const PrismaSearchQuerySchema = optional(partial(object({ ...pagniationQuery.entries, sort: prismaSort() })));
+export const PrismaSearchQuerySchema = optional(partial(object({ ...pagniationQuery.entries, sort: prismaSort })));
 //#endregion
