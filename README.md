@@ -30,7 +30,7 @@ Prisma &amp; Drizzle lunch &amp; learn
   - Includes sorting (keys are not validated)
   - Includes search (not validated JSON string, follow prisma where clause and must be encoded)
 
-## Prisma
+## Prisma specific
 
 - `npx prisma studio` will open the studio to see the data in the database
 - `npx prisma format` will format the schema file
@@ -43,12 +43,13 @@ Prisma &amp; Drizzle lunch &amp; learn
 - How to do down migrations [docs](https://www.prisma.io/docs/orm/prisma-migrate/workflows/generating-down-migrations)
 - Lots of community generators [here](https://www.prisma.io/docs/orm/prisma-schema/overview/generators#community-generators)
 
-## Drizzle
+## Drizzle specific
 
 - TODO
 
 ## Lunch & Learn Agenda
 
+- Swagger does not works with types, so it is not included in this project. You can always create models manually or use a generator to create models from the types/schema
 - See validations
 - See studio
 - See seeding
@@ -58,5 +59,4 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## TODO
 
-- Swagger
 - Drizzle
