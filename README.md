@@ -25,8 +25,8 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 - Auto logging of Prisma queries
 - Satifies schemas types with Prisma types
-- Generic Pagination `findAll()` & `getPrismaArgsFromQuery()` fully typesafe
-- Generic Sorting `findAll()` & `getPrismaArgsFromQuery()` almwost fully typesafe (keys are not)
+- Generic Pagination `findAll()` & `getPrismaArgsFromQuery()` fully typesafe & schemas validated
+- Generic Sorting `findAll()` & `getPrismaArgsFromQuery()` almost fully typesafe & schemas validated (keys are generic)
 
 ## Prisma
 

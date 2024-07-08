@@ -22,23 +22,20 @@ export const getPrismaArgsFromQuery = (query: SearchQuery) => {
   return args;
 };
 
-export const formatSort = (sort: string) => {
-  const arr = sort.split(':');
-  return formatSortKey(arr[0], arr[1] as SortOrder);
-};
+export const formatSort = (sort: string): NestedSortOrder => {
+  const [key, value] = sort.split(':');
 
-export const formatSortKey = (key: string, value: SortOrder): NestedSortOrder => {
   if (key.includes('.')) {
     const arr = key.split('.');
     const last = arr.pop()!;
-    let nestedObject: NestedSortOrder = { [last]: value };
+    let nestedObject: NestedSortOrder = { [last]: value as SortOrder };
     // Iterate in reverse order to build the nested structure.
     for (let i = arr.length - 1; i >= 0; i--) {
       nestedObject = { [arr[i]]: nestedObject };
     }
     return nestedObject;
   }
-  return { [key]: value };
+  return { [key]: value as SortOrder };
 };
 
 // /**
