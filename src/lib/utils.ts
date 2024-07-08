@@ -5,6 +5,8 @@ export const getPrismaArgsFromQuery = (query: PrismaSearchQuery) => {
     skip?: number;
     take?: number;
     orderBy?: PrismaNestedSortOrder[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    where?: any;
   } = {};
 
   if (query) {
@@ -16,6 +18,10 @@ export const getPrismaArgsFromQuery = (query: PrismaSearchQuery) => {
     }
     if (query.sort !== undefined) {
       args.orderBy = query.sort;
+    }
+    if (query.search) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      args.where = query.search;
     }
   }
 

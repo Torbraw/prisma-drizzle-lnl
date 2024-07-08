@@ -31,17 +31,13 @@ export class AllExceptionsFilter implements ExceptionFilter {
         statusCode: exception.getStatus(),
         message: message,
       };
-    }
-
-    if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+    } else if (exception instanceof Prisma.PrismaClientKnownRequestError) {
       responseBody = {
         statusCode: HttpStatus.BAD_REQUEST,
         message: 'Bad Request | PrismaClientKnownRequestError',
         code: exception.code,
       };
-    }
-
-    if (exception instanceof Prisma.PrismaClientValidationError) {
+    } else if (exception instanceof Prisma.PrismaClientValidationError) {
       responseBody = {
         statusCode: HttpStatus.BAD_REQUEST,
         message: 'Bad Request | PrismaClientValidationError',

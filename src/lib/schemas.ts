@@ -85,5 +85,13 @@ const prismaSort = pipe(
   mapItems((i) => formatPrismaSort(i)),
 );
 
-export const PrismaSearchQuerySchema = optional(partial(object({ ...pagniationQuery.entries, sort: prismaSort })));
+export const PrismaSearchQuerySchema = optional(
+  partial(
+    object({
+      ...pagniationQuery.entries,
+      sort: prismaSort,
+      search: pipe(string(), transform(JSON.parse)),
+    }),
+  ),
+);
 //#endregion
