@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ValibotValidationPipe } from 'src/lib/valibot-validation.pipe';
-import { SearchQuerySchema, PrismaCreateUserSchema, PrismaUpdateUserSchema } from 'src/lib/schemas';
-import { SearchQuery, PrismaCreateUser, PrismaUpdateUser } from 'src/lib/types';
+import { PrismaSearchQuerySchema, PrismaCreateUserSchema, PrismaUpdateUserSchema } from 'src/lib/schemas';
+import { PrismaSearchQuery, PrismaCreateUser, PrismaUpdateUser } from 'src/lib/types';
 
 @Controller('prisma/users')
 export class UsersController {
@@ -22,7 +22,7 @@ export class UsersController {
   }
 
   @Get()
-  public async findAll(@Query(new ValibotValidationPipe(SearchQuerySchema)) query: SearchQuery) {
+  public async findAll(@Query(new ValibotValidationPipe(PrismaSearchQuerySchema)) query: PrismaSearchQuery) {
     return await this.usersService.findAll(query);
   }
 

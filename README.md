@@ -25,8 +25,8 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 - Auto logging of Prisma queries
 - Satifies schemas types with Prisma types
-- Generic Pagination `findAll()` & `getPrismaArgsFromQuery()` fully typesafe & schemas validated
-- Generic Sorting `findAll()` & `getPrismaArgsFromQuery()` almost fully typesafe & schemas validated (keys are generic)
+- Generic search in `findAll()` with schemas validation `PrismaSearchQuerySchema` (sorting keys are generic & not validated)
+  - Includes pagination & sorting
 
 ## Prisma
 
@@ -43,6 +43,8 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## Drizzle
 
+- TODO
+
 ## Lunch & Learn Agenda
 
 - See validations
@@ -55,7 +57,6 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## TODO
 
-- Filtering
 - Search
 - Swagger
 - Drizzle

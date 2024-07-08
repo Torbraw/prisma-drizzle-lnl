@@ -1,10 +1,10 @@
-import { NestedSortOrder, SearchQuery, SortOrder } from './types';
+import { PrismaNestedSortOrder, PrismaSearchQuery, SortOrder } from './types';
 
-export const getPrismaArgsFromQuery = (query: SearchQuery) => {
+export const getPrismaArgsFromQuery = (query: PrismaSearchQuery) => {
   const args: {
     skip?: number;
     take?: number;
-    orderBy?: NestedSortOrder[];
+    orderBy?: PrismaNestedSortOrder[];
   } = {};
 
   if (query) {
@@ -22,13 +22,13 @@ export const getPrismaArgsFromQuery = (query: SearchQuery) => {
   return args;
 };
 
-export const formatSort = (sort: string): NestedSortOrder => {
+export const formatPrismaSort = (sort: string): PrismaNestedSortOrder => {
   const [key, value] = sort.split(':');
 
   if (key.includes('.')) {
     const arr = key.split('.');
     const last = arr.pop()!;
-    let nestedObject: NestedSortOrder = { [last]: value as SortOrder };
+    let nestedObject: PrismaNestedSortOrder = { [last]: value as SortOrder };
     // Iterate in reverse order to build the nested structure.
     for (let i = arr.length - 1; i >= 0; i--) {
       nestedObject = { [arr[i]]: nestedObject };

@@ -1,7 +1,7 @@
 import { PrismaUserWithRelationsInclude } from './const';
 import { Prisma } from '@prisma/client';
 import { InferOutput } from 'valibot';
-import { SearchQuerySchema, PrismaCreateUserSchema, PrismaUpdateUserSchema } from './schemas';
+import { PrismaSearchQuerySchema, PrismaCreateUserSchema, PrismaUpdateUserSchema } from './schemas';
 
 type Satisfies<T extends U, U> = T;
 
@@ -13,9 +13,9 @@ export type ExceptionResponse = {
 
 export type SortOrder = 'asc' | 'desc';
 
-export type NestedSortOrder = { [key: string]: NestedSortOrder | SortOrder };
+export type PrismaNestedSortOrder = { [key: string]: PrismaNestedSortOrder | SortOrder };
 
-export type SearchQuery = InferOutput<typeof SearchQuerySchema>;
+export type PrismaSearchQuery = InferOutput<typeof PrismaSearchQuerySchema>;
 
 export type PrismaUserWithRelations = Prisma.UserGetPayload<{
   include: typeof PrismaUserWithRelationsInclude;

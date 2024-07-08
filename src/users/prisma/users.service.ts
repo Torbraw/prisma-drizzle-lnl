@@ -4,7 +4,7 @@ import { createHash } from 'crypto';
 import { PrismaUserWithRelationsInclude } from 'src/lib/const';
 import { PrismaService } from 'src/lib/prisma/prisma.service';
 import {
-  SearchQuery,
+  PrismaSearchQuery,
   PrismaCreateUser,
   PrismaUpdateUser,
   PrismaUserWithAge,
@@ -33,7 +33,7 @@ export class UsersService {
     return await this.prisma.user.update({ where: { id }, data, include: PrismaUserWithRelationsInclude });
   }
 
-  public async findAll(query: SearchQuery) {
+  public async findAll(query: PrismaSearchQuery) {
     const findManyArgs = getPrismaArgsFromQuery(query);
 
     const [users, count] = await this.prisma.$transaction([
