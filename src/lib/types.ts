@@ -21,16 +21,24 @@ export type PrismaUserWithRelations = Prisma.UserGetPayload<{
   include: typeof PrismaUserWithRelationsInclude;
 }>;
 
+export type PrismaUserWithInfo = Prisma.UserGetPayload<{
+  include: { userInfo: true };
+}>;
+
 export type PrismaUserWithAge = Omit<PrismaUserWithRelations, 'userInfo'> & {
   userInfo: Omit<PrismaUserWithRelations['userInfo'], 'birthYear'> & {
     age: number;
   };
 };
 
-export type PrismaUserWithMaturity = PrismaUserWithRelations & {
+export type PrismaUserWithMaturity = PrismaUserWithInfo & {
   userInfo: {
     maturity: 'MINOR' | 'ADULT';
   };
+};
+
+export type PrismaUserWithPermissionCount = PrismaUserWithInfo & {
+  permissionCount: number;
 };
 
 export type PrismaCreateUser = Satisfies<

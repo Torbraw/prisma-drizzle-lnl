@@ -43,9 +43,3 @@ export const formatPrismaSort = (sort: string): PrismaNestedSortOrder => {
   }
   return { [key]: value as SortOrder };
 };
-
-// /**
-//  * @param keysValues All the valid keys separated by '|'
-//  * @returns A regex that matches the format of a sort query
-//  */
-// export const getSortRegex = (keysValues: string) => `^(${keysValues}+\.)*(${keysValues}+){1}:{1}(asc|desc){1}$`;

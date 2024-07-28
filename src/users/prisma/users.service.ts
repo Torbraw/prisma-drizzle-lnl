@@ -10,6 +10,7 @@ import {
   PrismaUserWithAge,
   PrismaUserWithMaturity,
   PrismaUserWithRelations,
+  PrismaUserWithPermissionCount,
 } from 'src/lib/types';
 import { getPrismaArgsFromQuery } from 'src/lib/utils';
 
@@ -69,27 +70,53 @@ export class UsersService {
   }
 
   public async findAllWithMaturity(): Promise<PrismaUserWithMaturity[]> {
-    const result = await this.prisma.$queryRaw(
+    return await this.prisma.$queryRaw<PrismaUserWithMaturity[]>(
       Prisma.sql` 
 SELECT 
-    prisma_users.*, 
-    JSON_OBJECT(
-        'maturity', 
-        CASE 
-            WHEN YEAR(CURDATE()) - prisma_user_infos.birthYear < 18 THEN 'MINOR' 
-            ELSE 'ADULT' 
-        END,
-        'birthYear', prisma_user_infos.birthYear,
-        'address', prisma_user_infos.address,
-        'phone', prisma_user_infos.phone,
-        'name', prisma_user_infos.name
-    ) AS userInfo
+  prisma_users.*, 
+  JSON_OBJECT(
+    'maturity', 
+    CASE 
+      WHEN YEAR(CURDATE()) - prisma_user_infos.birthYear < 18 THEN 'MINOR' 
+      ELSE 'ADULT' 
+    END,
+    'birthYear', prisma_user_infos.birthYear,
+    'address', prisma_user_infos.address,
+    'phone', prisma_user_infos.phone,
+    'name', prisma_user_infos.name
+  ) AS userInfo
 FROM 
-    prisma_users 
+  prisma_users 
 INNER JOIN 
-    prisma_user_infos
-    `,
+  prisma_user_infos ON prisma_user_infos.id = prisma_users.userInfoId`,
     );
-    return result as PrismaUserWithMaturity[];
+  }
+
+  public async findAllWithPermissionsCount(): Promise<PrismaUserWithPermissionCount[]> {
+    const result = await this.prisma.$queryRaw<PrismaUserWithPermissionCount[]>(
+      Prisma.sql`
+WITH cte AS (
+  SELECT COUNT(p.id) AS permissionCount, u.id AS userId
+  FROM prisma_permissions p
+	INNER JOIN _PermissionToRole pr ON p.id = pr.A
+	INNER JOIN prisma_roles r ON r.id = pr.B
+	INNER JOIN prisma_users u ON u.roleId = r.id
+  GROUP BY userId
+)
+SELECT u.*, c.permissionCount, JSON_OBJECT(
+  'birthYear', prisma_user_infos.birthYear,
+  'address', prisma_user_infos.address,
+  'phone', prisma_user_infos.phone,
+  'name', prisma_user_infos.name
+) AS userInfo
+FROM prisma_users u
+INNER JOIN cte c ON c.userId = u.id
+INNER JOIN prisma_user_infos ON prisma_user_infos.id = u.userInfoId`,
+    );
+    return result.map((user) => {
+      // Mysql COUNT() return bigint, json.stringify don't support bigint, dirty fix
+      user.permissionCount = Number(user.permissionCount);
+      return user;
+    });
   }
 }

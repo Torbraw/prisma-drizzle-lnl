@@ -7,6 +7,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 ### Global (for both Prisma & Drizzle)
 
 - Docker compose with mysql database
+- [Bruno](https://www.usebruno.com/) schema for the API #TODO
 - Table User, UserInfo, Role & Permission (all types of relationships)
 - Automatically omit password field from User
 - Logger to log time spent on each request
@@ -18,6 +19,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 - CRUD operations
 - Raw queries `findAllWithMaturity()`
 - Transactions `findAll()`
+- Cte queries `findAllWithPermissionsCount()`
 - Exclude fields from response `findOne()`
 - Add fields to response `findOne()`
 
@@ -49,7 +51,8 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## Lunch & Learn Agenda
 
-- Swagger does not works with types, so it is not included in this project. You can always create models manually or use a generator to create models from the types/schema
+- Swagger does not works with types, so it's not included in this project. You can always create models manually or use a generator to create models from the types/schema
+- See exceptions/logs
 - See validations
 - See studio
 - See seeding
@@ -57,6 +60,14 @@ Prisma &amp; Drizzle lunch &amp; learn
 - See queries differences (transactions, raw queries, pagination, relations, etc)
 - See generic search (Prisma not made for this, better to use typesafe query builder)
 
-## TODO
+## How to run locally
 
-- Drizzle
+- `npm i` to install dependencies
+- `docker-compose up` to start the database
+- `npm run prisma:generate` to generate the Prisma client
+- `npm run prisma:migrate-deploy` to apply the migrations
+- `npm run prisma:seed` to seed the database
+- TODO drizzle commands
+- `npm run dev` to start the server
+
+You can import the bruno file to have api endpoints
