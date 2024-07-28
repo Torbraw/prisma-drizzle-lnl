@@ -17,9 +17,9 @@ Prisma &amp; Drizzle lunch &amp; learn
 - Seeder to seed the database with data
 - Migrations
 - CRUD operations
-- Raw queries `findAllWithMaturity()`
 - Transactions `findAll()`
-- Cte queries `findAllWithPermissionsCount()`
+- Raw query `findAllWithMaturity()`
+- Cte query `findAllWithPermissionsCount()`
 - Exclude fields from response `findOne()`
 - Add fields to response `findOne()`
 
