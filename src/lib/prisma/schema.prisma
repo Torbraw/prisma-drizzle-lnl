@@ -18,7 +18,7 @@ model User {
 
   role     Role      @relation(fields: [roleId], references: [id])
   roleId   Int
-  userInfo UserInfo @relation(fields: [userInfoId], references: [id])
+  userInfo UserInfo @relation(fields: [userInfoId], references: [id], onDelete: Cascade)
   userInfoId Int    @unique
 
   @@map("prisma_users")
