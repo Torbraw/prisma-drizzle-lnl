@@ -1,0 +1,1 @@
+ALTER TABLE `drizzle_permissions` MODIFY COLUMN `type` enum('API','UI') NOT NULL;

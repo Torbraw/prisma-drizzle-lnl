@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1722216692903,
+      "tag": "0000_slippery_yellowjacket",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1722216822967,
+      "tag": "0001_parched_omega_flight",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1722217137139,
+      "tag": "0002_medical_misty_knight",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1722219021784,
+      "tag": "0003_silky_wind_dancer",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1722219987626,
+      "tag": "0004_woozy_captain_universe",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1722220700218,
+      "tag": "0005_messy_mentallo",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1722220779339,
+      "tag": "0006_normal_scarlet_spider",
+      "breakpoints": true
+    }
+  ]
+}

@@ -11,13 +11,20 @@
     "prisma:migrate": "prisma migrate dev --schema=./src/lib/prisma/schema.prisma",
     "prisma:migrate-deploy": "prisma migrate deploy --schema=./src/lib/prisma/schema.prisma",
     "prisma:seed": "prisma db seed --schema=./src/lib/prisma/schema.prisma",
-    "prisma:reset": "prisma migrate reset --schema=./src/lib/prisma/schema.prisma"
+    "prisma:reset": "prisma migrate reset --schema=./src/lib/prisma/schema.prisma",
+    "drizzle:studio": "drizzle-kit studio",
+    "drizzle:generate": "drizzle-kit generate",
+    "drizzle:migrate": "drizzle-kit migrate",
+    "drizzle:seed": "tsx src/lib/drizzle/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.10",
+    "@nestjs/config": "^3.2.3",
     "@nestjs/core": "^10.3.10",
     "@nestjs/platform-fastify": "^10.3.10",
     "@prisma/client": "^5.16.1",
+    "drizzle-orm": "^0.32.1",
+    "mysql2": "^3.11.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "valibot": "^0.35.0"
@@ -28,6 +35,8 @@
     "@types/node": "^20.14.9",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
+    "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.23.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",

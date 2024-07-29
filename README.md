@@ -25,12 +25,18 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ### Prisma
 
+- Hard to do stuffs outside of the "basic" workflow (need to use raw queries)
 - Auto logging of Prisma queries
 - Satifies schemas types with Prisma types
 - Generic search in `findAll()` with schemas validation `PrismaSearchQuerySchema`
   - Includes pagination
   - Includes sorting (keys are not validated)
   - Includes search (not validated JSON string, follow prisma where clause and must be encoded)
+
+### Drizzle
+
+- Migrations are not the best, clearly designed for `push` workflow (for exemple, if a migration fails midway, you need to manually revert and apply the migrations)
+- Auto logging of Drizzle queries
 
 ## Prisma specific
 
@@ -47,7 +53,15 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## Drizzle specific
 
-- TODO
+- `npx drizzle-kit studio` will open the studio to see the data in the database
+- No build-in seed command, use .ts file to seed the database (`npm run drizzle:seed` in this project)
+- `npx drizzle-kit generate` will generate migrations based on the schema file
+- `npx drizzle-kit migrate` will apply the migrations to the database
+- `npx drizzle-kit drop` will drop the selected migration (CLI prompt to select)
+- `npx drizzle-kit push` will apply the schema to the database without migration, useful for prototyping locally before using migrations
+- There is not reset command
+- There is no down migrations but it is in the [work](https://github.com/drizzle-team/drizzle-orm/issues/2352)
+- Drizzle has a config file `drizzle.config.ts`, [ref](https://orm.drizzle.team/kit-docs/config-reference)
 
 ## Lunch & Learn Agenda
 
@@ -67,7 +81,8 @@ Prisma &amp; Drizzle lunch &amp; learn
 - `npm run prisma:generate` to generate the Prisma client
 - `npm run prisma:migrate-deploy` to apply the migrations
 - `npm run prisma:seed` to seed the database
-- TODO drizzle commands
+- `npm run drizzle:generate` to generate the Drizzle migrations
+- `npm run drizzle:migrate` to apply the Drizzle migrations
 - `npm run dev` to start the server
 
 You can import the bruno file to have api endpoints
