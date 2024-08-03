@@ -1,10 +1,13 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { createHash } from 'crypto';
 import { count, eq, getTableColumns, sql } from 'drizzle-orm';
+import { MySqlSelectQueryBuilder } from 'drizzle-orm/mysql-core';
 import { MySql2Database } from 'drizzle-orm/mysql2';
 import { permissions, roles, rolesToPermissions, userInfos, users } from 'src/lib/drizzle/schema';
 import {
   DrizzleCreateUser,
+  DrizzleFindAllResponse,
+  DrizzleSearchQuery,
   DrizzleUpdateUser,
   DrizzleUserWithAge,
   DrizzleUserWithMaturity,
@@ -89,6 +92,33 @@ export class UsersService {
     };
   }
 
+  public async findAll(query: DrizzleSearchQuery): Promise<DrizzleFindAllResponse> {
+    return await this.drizzle.transaction(async (trx) => {
+      const qb = this.drizzle
+        .select({
+          ...usersColumns,
+          userInfo: userInfosColumns,
+        })
+        .from(users)
+        .innerJoin(userInfos, eq(users.userInfoId, userInfos.id))
+        .$dynamic();
+
+      const rows = await this.addFiltersToQuery(qb, query);
+
+      const totalCount = await trx
+        .select({
+          count: count(users.id),
+        })
+        .from(users)
+        .then((r) => r[0].count);
+
+      return {
+        users: rows,
+        totalCount,
+      };
+    });
+  }
+
   public async findAllWithMaturity(): Promise<DrizzleUserWithMaturity[]> {
     return await this.drizzle
       .select({
@@ -107,7 +137,7 @@ export class UsersService {
       this.drizzle
         .select({
           userId: users.id,
-          permissionCount: count(rolesToPermissions.roleId),
+          permissionCount: count(rolesToPermissions.roleId).as('permissionCount'),
         })
         .from(rolesToPermissions)
         .innerJoin(roles, eq(roles.id, rolesToPermissions.roleId))
@@ -150,5 +180,18 @@ export class UsersService {
         permissions: rows.map((row) => row.permission),
       },
     };
+  }
+
+  private addFiltersToQuery<T extends MySqlSelectQueryBuilder>(qb: T, query: DrizzleSearchQuery) {
+    if (query) {
+      if (query.limit !== undefined) {
+        qb.limit(query.limit);
+        if (query.page !== undefined) {
+          qb.offset(query.limit * (query.page - 1));
+        }
+      }
+    }
+
+    return qb;
   }
 }

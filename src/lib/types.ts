@@ -7,6 +7,7 @@ import {
   PrismaUpdateUserSchema,
   DrizzleCreateUserSchema,
   DrizzleUpdateUserSchema,
+  DrizzleSearchQuerySchema,
 } from './schemas';
 import {
   DrizzleInsertUserInfo,
@@ -47,6 +48,11 @@ type PrismaUserWithInfo = Prisma.UserGetPayload<{
   include: { userInfo: true };
 }>;
 
+export type PrismaFindAllResponse = {
+  users: PrismaUserWithInfo[];
+  totalCount: number;
+};
+
 export type PrismaUserWithMaturity = PrismaUserWithInfo & {
   userInfo: {
     maturity: 'MINOR' | 'ADULT';
@@ -71,8 +77,14 @@ export type PrismaUpdateUser = Satisfies<
 
 //#region Drizzle
 
+export type DrizzleSearchQuery = InferOutput<typeof DrizzleSearchQuerySchema>;
+
 type DrizzleWithUserInfo = Omit<DrizzleUser, 'password'> & {
   userInfo: DrizzleUserInfo;
+};
+export type DrizzleFindAllResponse = {
+  users: DrizzleWithUserInfo[];
+  totalCount: number;
 };
 
 export type DrizzleUserWithPermissionCount = DrizzleWithUserInfo & {

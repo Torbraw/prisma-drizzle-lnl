@@ -113,4 +113,11 @@ export const DrizzleUpdateUserSchema = partial(
   }),
 );
 
+export const DrizzleSearchQuerySchema = optional(
+  partial(
+    object({
+      ...paginationQuery.entries,
+    }),
+  ),
+);
 //#endregion

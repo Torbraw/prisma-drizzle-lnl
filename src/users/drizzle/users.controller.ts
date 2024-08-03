@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ValibotValidationPipe } from 'src/lib/valibot-validation.pipe';
-import { DrizzleCreateUserSchema, DrizzleUpdateUserSchema } from 'src/lib/schemas';
-import { DrizzleCreateUser, DrizzleUpdateUser } from 'src/lib/types';
+import { DrizzleCreateUserSchema, DrizzleSearchQuerySchema, DrizzleUpdateUserSchema } from 'src/lib/schemas';
+import { DrizzleCreateUser, DrizzleSearchQuery, DrizzleUpdateUser } from 'src/lib/types';
 
 @Controller('drizzle/users')
 export class UsersController {
@@ -21,10 +21,10 @@ export class UsersController {
     return await this.usersService.update(id, data);
   }
 
-  // @Get()
-  // public async findAll(@Query(new ValibotValidationPipe(PrismaSearchQuerySchema)) query: PrismaSearchQuery) {
-  //   return await this.usersService.findAll(query);
-  // }
+  @Get()
+  public async findAll(@Query(new ValibotValidationPipe(DrizzleSearchQuerySchema)) query: DrizzleSearchQuery) {
+    return await this.usersService.findAll(query);
+  }
 
   @Get('maturity')
   public async findAllWithMaturity() {

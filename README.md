@@ -32,15 +32,19 @@ Prisma &amp; Drizzle lunch &amp; learn
   - Includes sorting (keys are not validated)
   - Includes search (not validated JSON string, follow prisma where clause and must be encoded)
 - Hard to do stuffs outside of the "basic" workflow (need to use raw queries)
+- Pretty easy to do "CRUD" operations
 
 ### Drizzle
 
 - Omit password field from User
-- A plugin exist to create validation schemas from the database schema, but the one for drizzle is not up to date [pr](https://github.com/drizzle-team/drizzle-orm/pull/2481)
+- A plugin exist to create validation schemas from the database schema, but the one for valibot is not up to date [pr](https://github.com/drizzle-team/drizzle-orm/pull/2481)
 - Migrations are not the best, clearly designed for `push` workflow (for exemple, if a migration fails midway, you need to manually revert and apply the migrations)
 - Drizzle is less mature than Prisma, but in active development
 - SQL like queries
-- Dynamic select with types #TODO
+  - More control over the queries, but more verbose
+  - Easy to do stuff outside of the "basic" workflow
+  - More verbose to do "CRUD" operations
+- Typing is really good, but doing generic things while keeping typesafety is harder
 - Relationnal queries #TODO
 
 ## Prisma specific
