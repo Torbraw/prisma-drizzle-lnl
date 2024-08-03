@@ -103,4 +103,14 @@ export const DrizzleCreateUserSchema = object({
   roleId: defaultPositiveNumber(),
   userInfo: userInfoSchema,
 });
+
+export const DrizzleUpdateUserSchema = partial(
+  object({
+    ...omit(DrizzleCreateUserSchema, ['password']).entries,
+    userInfoId: defaultPositiveNumber(),
+    userInfo: partial(userInfoSchema),
+    isActive: boolean(),
+  }),
+);
+
 //#endregion

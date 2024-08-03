@@ -6,6 +6,7 @@ import {
   PrismaCreateUserSchema,
   PrismaUpdateUserSchema,
   DrizzleCreateUserSchema,
+  DrizzleUpdateUserSchema,
 } from './schemas';
 import {
   DrizzleInsertUserInfo,
@@ -82,6 +83,15 @@ export type DrizzleCreateUser = Satisfies<
   Omit<DrizzleInsertUser, 'userInfoId'> & {
     userInfo: DrizzleInsertUserInfo;
   }
+>;
+
+export type DrizzleUpdateUser = Satisfies<
+  InferOutput<typeof DrizzleUpdateUserSchema>,
+  Partial<
+    Omit<DrizzleInsertUser, 'password'> & {
+      userInfo: Partial<DrizzleInsertUserInfo>;
+    }
+  >
 >;
 
 //#endregion

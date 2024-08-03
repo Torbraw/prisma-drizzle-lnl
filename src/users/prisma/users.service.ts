@@ -31,6 +31,13 @@ export class UsersService {
   }
 
   public async update(id: number, data: PrismaUpdateUser): Promise<PrismaUserWithRelations> {
+    if (data.userInfo?.update.birthYear) {
+      const now = new Date();
+      if (data.userInfo.update.birthYear > now.getFullYear()) {
+        throw new BadRequestException('Birth year must be less than or equal to the current year');
+      }
+    }
+
     return await this.prisma.user.update({ where: { id }, data, include: PrismaUserWithRelationsInclude });
   }
 

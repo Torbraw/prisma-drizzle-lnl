@@ -13,7 +13,7 @@ import {
   userInfos,
   users,
 } from 'src/lib/drizzle/schema';
-import { DrizzleCreateUser, DrizzleUserWithRelations } from 'src/lib/types';
+import { DrizzleCreateUser, DrizzleUpdateUser, DrizzleUserWithRelations } from 'src/lib/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { password, ...usersColumns } = getTableColumns(users);
@@ -27,6 +27,7 @@ export class UsersService {
     if (data.userInfo.birthYear > now.getFullYear()) {
       throw new BadRequestException('Birth year must be less than or equal to the current year');
     }
+
     const hashPassword = createHash('sha256').update(data.password).digest('hex');
     data.password = hashPassword;
 
@@ -44,6 +45,24 @@ export class UsersService {
     });
 
     return this.getUserWithRelations(userId);
+  }
+
+  public async update(id: number, data: DrizzleUpdateUser): Promise<DrizzleUserWithRelations> {
+    if (data.userInfo?.birthYear) {
+      const now = new Date();
+      if (data.userInfo.birthYear > now.getFullYear()) {
+        throw new BadRequestException('Birth year must be less than or equal to the current year');
+      }
+    }
+
+    await this.drizzle.transaction(async (trx) => {
+      if (data.userInfo && data.userInfoId) {
+        await trx.update(userInfos).set(data.userInfo).where(eq(userInfos.id, data.userInfoId));
+      }
+      await trx.update(users).set(data).where(eq(users.id, id));
+    });
+
+    return this.getUserWithRelations(id);
   }
 
   public async getUserWithRelations(userId: number): Promise<DrizzleUserWithRelations> {
