@@ -37,6 +37,8 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 - Migrations are not the best, clearly designed for `push` workflow (for exemple, if a migration fails midway, you need to manually revert and apply the migrations)
 - Auto logging of Drizzle queries
+- A plugin exist to create validation schemas from the database schema, but the one for drizzle is not up to date [pr](https://github.com/drizzle-team/drizzle-orm/pull/2481)
+- Drizzle is less mature than Prisma, but in active development
 
 ## Prisma specific
 
@@ -83,6 +85,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 - `npm run prisma:seed` to seed the database
 - `npm run drizzle:generate` to generate the Drizzle migrations
 - `npm run drizzle:migrate` to apply the Drizzle migrations
+- `npm run drizzle:seed` to seed the database
 - `npm run dev` to start the server
 
 You can import the bruno file to have api endpoints
