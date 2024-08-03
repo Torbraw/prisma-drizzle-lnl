@@ -16,6 +16,6 @@ import { createConnection } from 'mysql2/promise';
       },
     },
   ],
-  exports: [],
+  exports: ['Drizzle'],
 })
 export class DrizzleModule {}

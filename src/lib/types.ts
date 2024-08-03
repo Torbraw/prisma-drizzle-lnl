@@ -1,7 +1,20 @@
 import { PrismaUserWithRelationsInclude } from './const';
 import { Prisma } from '@prisma/client';
 import { InferOutput } from 'valibot';
-import { PrismaSearchQuerySchema, PrismaCreateUserSchema, PrismaUpdateUserSchema } from './schemas';
+import {
+  PrismaSearchQuerySchema,
+  PrismaCreateUserSchema,
+  PrismaUpdateUserSchema,
+  DrizzleCreateUserSchema,
+} from './schemas';
+import {
+  DrizzleInsertUserInfo,
+  DrizzleInsertUser,
+  DrizzleUser,
+  DrizzleUserInfo,
+  DrizzleRole,
+  DrizzlePermission,
+} from './drizzle/schema';
 
 type Satisfies<T extends U, U> = T;
 
@@ -12,6 +25,8 @@ export type ExceptionResponse = {
 };
 
 export type SortOrder = 'asc' | 'desc';
+
+//#region Prisma
 
 export type PrismaNestedSortOrder = { [key: string]: PrismaNestedSortOrder | SortOrder };
 
@@ -50,3 +65,23 @@ export type PrismaUpdateUser = Satisfies<
   InferOutput<typeof PrismaUpdateUserSchema>,
   Omit<Prisma.UserUpdateInput, 'createdBy' | 'updatedAt'>
 >;
+
+//#endregion
+
+//#region Drizzle
+
+export type DrizzleUserWithRelations = DrizzleUser & {
+  userInfo: DrizzleUserInfo;
+  role: DrizzleRole & {
+    permissions: DrizzlePermission[];
+  };
+};
+
+export type DrizzleCreateUser = Satisfies<
+  InferOutput<typeof DrizzleCreateUserSchema>,
+  Omit<DrizzleInsertUser, 'userInfoId'> & {
+    userInfo: DrizzleInsertUserInfo;
+  }
+>;
+
+//#endregion

@@ -48,7 +48,7 @@ const userInfoSchema = object({
   name: optional(defaultString()),
 });
 
-const pagniationQuery = object({
+const paginationQuery = object({
   page: pipe(string(), transform(Number), defaultPositiveNumber(), minValue(1, 'Must be at least 1')),
   limit: pipe(string(), transform(Number), defaultPositiveNumber(100)),
 });
@@ -88,10 +88,19 @@ const prismaSort = pipe(
 export const PrismaSearchQuerySchema = optional(
   partial(
     object({
-      ...pagniationQuery.entries,
+      ...paginationQuery.entries,
       sort: prismaSort,
       search: pipe(string(), transform(JSON.parse)),
     }),
   ),
 );
+//#endregion
+
+//#region Drizzle
+export const DrizzleCreateUserSchema = object({
+  email: defaultString(),
+  password: passwordValidation,
+  roleId: defaultPositiveNumber(),
+  userInfo: userInfoSchema,
+});
 //#endregion

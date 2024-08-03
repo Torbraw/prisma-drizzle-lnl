@@ -9,11 +9,12 @@ Prisma &amp; Drizzle lunch &amp; learn
 - Docker compose with mysql database
 - [Bruno](https://www.usebruno.com/) schema for the API #TODO
 - Table User, UserInfo, Role & Permission (all types of relationships)
-- Automatically omit password field from User
 - Logger to log time spent on each request
 - Exception filter with custom error response
 - Custom decorators for validation with [valibot](https://valibot.dev/) schemas
 - Inherit types from schemas
+- Satifies schemas types with DB types
+- Auto logging of queries
 - Seeder to seed the database with data
 - Migrations
 - CRUD operations
@@ -25,20 +26,21 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ### Prisma
 
-- Hard to do stuffs outside of the "basic" workflow (need to use raw queries)
-- Auto logging of Prisma queries
-- Satifies schemas types with Prisma types
+- Automatically omit password field from User
 - Generic search in `findAll()` with schemas validation `PrismaSearchQuerySchema`
   - Includes pagination
   - Includes sorting (keys are not validated)
   - Includes search (not validated JSON string, follow prisma where clause and must be encoded)
+- Hard to do stuffs outside of the "basic" workflow (need to use raw queries)
 
 ### Drizzle
 
-- Migrations are not the best, clearly designed for `push` workflow (for exemple, if a migration fails midway, you need to manually revert and apply the migrations)
-- Auto logging of Drizzle queries
+- Omit password field from User
 - A plugin exist to create validation schemas from the database schema, but the one for drizzle is not up to date [pr](https://github.com/drizzle-team/drizzle-orm/pull/2481)
+- Migrations are not the best, clearly designed for `push` workflow (for exemple, if a migration fails midway, you need to manually revert and apply the migrations)
 - Drizzle is less mature than Prisma, but in active development
+- SQL like queries
+- Relationnal queries #TODO
 
 ## Prisma specific
 

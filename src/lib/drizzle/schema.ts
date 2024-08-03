@@ -83,3 +83,11 @@ export const rolesToPermissions = mysqlTable(
     };
   },
 );
+
+export type DrizzleUser = typeof users.$inferSelect;
+export type DrizzleUserInfo = typeof userInfos.$inferSelect;
+export type DrizzleRole = typeof roles.$inferSelect;
+export type DrizzlePermission = typeof permissions.$inferSelect;
+
+export type DrizzleInsertUser = typeof users.$inferInsert;
+export type DrizzleInsertUserInfo = typeof userInfos.$inferInsert;
