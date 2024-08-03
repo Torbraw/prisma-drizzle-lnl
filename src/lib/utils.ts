@@ -1,32 +1,4 @@
-import { PrismaNestedSortOrder, PrismaSearchQuery, SortOrder } from './types';
-
-export const getPrismaArgsFromQuery = (query: PrismaSearchQuery) => {
-  const args: {
-    skip?: number;
-    take?: number;
-    orderBy?: PrismaNestedSortOrder[];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    where?: any;
-  } = {};
-
-  if (query) {
-    if (query.limit !== undefined) {
-      args.take = query.limit;
-      if (query.page !== undefined) {
-        args.skip = query.limit * (query.page - 1);
-      }
-    }
-    if (query.sort !== undefined) {
-      args.orderBy = query.sort;
-    }
-    if (query.search) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      args.where = query.search;
-    }
-  }
-
-  return args;
-};
+import { PrismaNestedSortOrder, SortOrder } from './types';
 
 export const formatPrismaSort = (sort: string): PrismaNestedSortOrder => {
   const [key, value] = sort.split(':');

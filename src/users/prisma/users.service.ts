@@ -4,15 +4,16 @@ import { createHash } from 'crypto';
 import { PrismaUserWithRelationsInclude } from 'src/lib/const';
 import { PrismaService } from 'src/lib/prisma/prisma.service';
 import {
-  PrismaSearchQuery,
   PrismaCreateUser,
   PrismaUpdateUser,
   PrismaUserWithAge,
   PrismaUserWithMaturity,
   PrismaUserWithRelations,
   PrismaUserWithPermissionCount,
+  PrismaFindAllResponse,
+  PrismaNestedSortOrder,
+  PrismaSearchQuery,
 } from 'src/lib/types';
-import { getPrismaArgsFromQuery } from 'src/lib/utils';
 
 @Injectable()
 export class UsersService {
@@ -41,10 +42,10 @@ export class UsersService {
     return await this.prisma.user.update({ where: { id }, data, include: PrismaUserWithRelationsInclude });
   }
 
-  public async findAll(query: PrismaSearchQuery) {
-    const findManyArgs = getPrismaArgsFromQuery(query);
+  public async findAll(query: PrismaSearchQuery): Promise<PrismaFindAllResponse> {
+    const findManyArgs = this.getPrismaArgsFromQuery(query);
 
-    const [users, count] = await this.prisma.$transaction([
+    const [users, totalCount] = await this.prisma.$transaction([
       this.prisma.user.findMany({
         ...findManyArgs,
         include: {
@@ -55,7 +56,7 @@ export class UsersService {
     ]);
     return {
       users,
-      count,
+      totalCount,
     };
   }
 
@@ -124,5 +125,33 @@ INNER JOIN prisma_user_infos ON prisma_user_infos.id = u.userInfoId`,
       user.permissionCount = Number(user.permissionCount);
       return user;
     });
+  }
+
+  private getPrismaArgsFromQuery(query: PrismaSearchQuery) {
+    const args: {
+      skip?: number;
+      take?: number;
+      orderBy?: PrismaNestedSortOrder[];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      where?: any;
+    } = {};
+
+    if (query) {
+      if (query.limit !== undefined) {
+        args.take = query.limit;
+        if (query.page !== undefined) {
+          args.skip = query.limit * (query.page - 1);
+        }
+      }
+      if (query.sort !== undefined) {
+        args.orderBy = query.sort;
+      }
+      if (query.search) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        args.where = query.search;
+      }
+    }
+
+    return args;
   }
 }
