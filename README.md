@@ -40,6 +40,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 - Migrations are not the best, clearly designed for `push` workflow (for exemple, if a migration fails midway, you need to manually revert and apply the migrations)
 - Drizzle is less mature than Prisma, but in active development
 - SQL like queries
+- Dynamic select with types #TODO
 - Relationnal queries #TODO
 
 ## Prisma specific

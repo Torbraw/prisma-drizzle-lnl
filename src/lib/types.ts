@@ -77,7 +77,7 @@ export type DrizzleUserWithAge = Omit<DrizzleUserWithRelations, 'userInfo'> & {
   };
 };
 
-export type DrizzleUserWithRelations = DrizzleUser & {
+export type DrizzleUserWithRelations = Omit<DrizzleUser, 'password'> & {
   userInfo: DrizzleUserInfo;
   role: DrizzleRole & {
     permissions: DrizzlePermission[];
