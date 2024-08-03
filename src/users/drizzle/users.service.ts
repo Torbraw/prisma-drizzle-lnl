@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { createHash } from 'crypto';
-import { eq, getTableColumns } from 'drizzle-orm';
+import { eq, getTableColumns, SQL, sql } from 'drizzle-orm';
 import { MySql2Database } from 'drizzle-orm/mysql2';
 import {
   DrizzlePermission,
@@ -13,10 +13,10 @@ import {
   userInfos,
   users,
 } from 'src/lib/drizzle/schema';
-import { DrizzleCreateUser, DrizzleUpdateUser, DrizzleUserWithRelations } from 'src/lib/types';
+import { DrizzleCreateUser, DrizzleUpdateUser, DrizzleUserWithAge, DrizzleUserWithRelations } from 'src/lib/types';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { password, ...usersColumns } = getTableColumns(users);
+const userInfosColumns = getTableColumns(userInfos);
 
 @Injectable()
 export class UsersService {
@@ -65,12 +65,20 @@ export class UsersService {
     return this.getUserWithRelations(id);
   }
 
-  public async getUserWithRelations(userId: number): Promise<DrizzleUserWithRelations> {
+  public async findOne(id: number): Promise<DrizzleUserWithAge> {
+    const { birthYear, ...rest } = userInfosColumns;
+    return this.getUserWithRelations(id, { ...rest, age: sql<number>`YEAR(CURDATE()) - ${userInfos.birthYear}` });
+  }
+
+  private async getUserWithRelations<T>(
+    userId: number,
+    customInfosColumn: Partial<typeof userInfosColumns> | Record<string, SQL> = userInfosColumns,
+  ): Promise<T> {
     const rows = await this.drizzle
       .select({
         user: usersColumns,
         role: roles,
-        userInfo: userInfos,
+        userInfo: customInfosColumn,
         permission: permissions,
       })
       .from(users)
@@ -79,7 +87,7 @@ export class UsersService {
       .innerJoin(rolesToPermissions, eq(roles.id, rolesToPermissions.roleId))
       .innerJoin(permissions, eq(rolesToPermissions.permissionId, permissions.id))
       .where(eq(users.id, userId));
-    return this.mapRowsToUser<DrizzleUserWithRelations>(rows);
+    return this.mapRowsToUser<T>(rows);
   }
 
   private mapRowsToUser<T>(

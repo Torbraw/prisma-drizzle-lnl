@@ -38,7 +38,6 @@ export class UsersController {
 
   @Get(':id')
   public async findOne(@Param('id', ParseIntPipe) id: number) {
-    //return await this.usersService.findOne(id);
-    return await this.usersService.getUserWithRelations(id);
+    return await this.usersService.findOne(id);
   }
 }

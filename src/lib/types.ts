@@ -71,6 +71,12 @@ export type PrismaUpdateUser = Satisfies<
 
 //#region Drizzle
 
+export type DrizzleUserWithAge = Omit<DrizzleUserWithRelations, 'userInfo'> & {
+  userInfo: Omit<DrizzleUserInfo, 'birthYear'> & {
+    age: number;
+  };
+};
+
 export type DrizzleUserWithRelations = DrizzleUser & {
   userInfo: DrizzleUserInfo;
   role: DrizzleRole & {
