@@ -45,7 +45,7 @@ Prisma &amp; Drizzle lunch &amp; learn
   - More control over the queries, but more verbose
   - Easy to do stuff outside of the "basic" workflow
   - More verbose to do "CRUD" operations
-- Typing is really good, but doing generic things while keeping typesafety is harder
+  - Typing is exceptional, but doing generic things while keeping typesafety is harder/impossible
 - Relationnal queries #TODO
 
 ## Prisma specific
