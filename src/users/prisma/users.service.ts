@@ -103,9 +103,8 @@ INNER JOIN
     const result = await this.prisma.$queryRaw<PrismaUserWithPermissionCount[]>(
       Prisma.sql`
 WITH cte AS (
-  SELECT COUNT(p.id) AS permissionCount, u.id AS userId
-  FROM prisma_permissions p
-	INNER JOIN _PermissionToRole pr ON p.id = pr.A
+  SELECT COUNT(pr.B) AS permissionCount, u.id AS userId
+  FROM _PermissionToRole pr
 	INNER JOIN prisma_roles r ON r.id = pr.B
 	INNER JOIN prisma_users u ON u.roleId = r.id
   GROUP BY userId

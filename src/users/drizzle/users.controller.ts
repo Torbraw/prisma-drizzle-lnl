@@ -26,15 +26,15 @@ export class UsersController {
   //   return await this.usersService.findAll(query);
   // }
 
-  // @Get('maturity')
-  // public async findAllWithMaturity() {
-  //   return await this.usersService.findAllWithMaturity();
-  // }
+  @Get('maturity')
+  public async findAllWithMaturity() {
+    return await this.usersService.findAllWithMaturity();
+  }
 
-  // @Get('permissions-count')
-  // public async findAllWithPermissionsCount() {
-  //   return await this.usersService.findAllWithPermissionsCount();
-  // }
+  @Get('permissions-count')
+  public async findAllWithPermissionsCount() {
+    return await this.usersService.findAllWithPermissionsCount();
+  }
 
   @Get(':id')
   public async findOne(@Param('id', ParseIntPipe) id: number) {

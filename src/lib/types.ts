@@ -37,15 +37,15 @@ export type PrismaUserWithRelations = Prisma.UserGetPayload<{
   include: typeof PrismaUserWithRelationsInclude;
 }>;
 
-export type PrismaUserWithInfo = Prisma.UserGetPayload<{
-  include: { userInfo: true };
-}>;
-
 export type PrismaUserWithAge = Omit<PrismaUserWithRelations, 'userInfo'> & {
   userInfo: Omit<PrismaUserWithRelations['userInfo'], 'birthYear'> & {
     age: number;
   };
 };
+
+type PrismaUserWithInfo = Prisma.UserGetPayload<{
+  include: { userInfo: true };
+}>;
 
 export type PrismaUserWithMaturity = PrismaUserWithInfo & {
   userInfo: {
@@ -70,6 +70,20 @@ export type PrismaUpdateUser = Satisfies<
 //#endregion
 
 //#region Drizzle
+
+type DrizzleWithUserInfo = Omit<DrizzleUser, 'password'> & {
+  userInfo: DrizzleUserInfo;
+};
+
+export type DrizzleUserWithPermissionCount = DrizzleWithUserInfo & {
+  permissionCount: number;
+};
+
+export type DrizzleUserWithMaturity = DrizzleWithUserInfo & {
+  userInfo: {
+    maturity: 'MINOR' | 'ADULT';
+  };
+};
 
 export type DrizzleUserWithAge = Omit<DrizzleUserWithRelations, 'userInfo'> & {
   userInfo: Omit<DrizzleUserInfo, 'birthYear'> & {

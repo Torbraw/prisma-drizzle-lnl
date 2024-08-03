@@ -1,9 +1,16 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { createHash } from 'crypto';
-import { eq, getTableColumns, sql } from 'drizzle-orm';
+import { count, eq, getTableColumns, sql } from 'drizzle-orm';
 import { MySql2Database } from 'drizzle-orm/mysql2';
 import { permissions, roles, rolesToPermissions, userInfos, users } from 'src/lib/drizzle/schema';
-import { DrizzleCreateUser, DrizzleUpdateUser, DrizzleUserWithAge, DrizzleUserWithRelations } from 'src/lib/types';
+import {
+  DrizzleCreateUser,
+  DrizzleUpdateUser,
+  DrizzleUserWithAge,
+  DrizzleUserWithMaturity,
+  DrizzleUserWithPermissionCount,
+  DrizzleUserWithRelations,
+} from 'src/lib/types';
 
 const { password, ...usersColumns } = getTableColumns(users);
 const userInfosColumns = getTableColumns(userInfos);
@@ -80,6 +87,44 @@ export class UsersService {
         permissions: rows.map((row) => row.permission),
       },
     };
+  }
+
+  public async findAllWithMaturity(): Promise<DrizzleUserWithMaturity[]> {
+    return await this.drizzle
+      .select({
+        ...usersColumns,
+        userInfo: {
+          ...userInfosColumns,
+          maturity: sql<'MINOR' | 'ADULT'>`CASE WHEN YEAR(CURDATE()) - birth_year < 18 THEN 'MINOR' ELSE 'ADULT' END`,
+        },
+      })
+      .from(users)
+      .innerJoin(userInfos, eq(users.userInfoId, userInfos.id));
+  }
+
+  public async findAllWithPermissionsCount(): Promise<DrizzleUserWithPermissionCount[]> {
+    const sq = this.drizzle.$with('sq').as(
+      this.drizzle
+        .select({
+          userId: users.id,
+          permissionCount: count(rolesToPermissions.roleId),
+        })
+        .from(rolesToPermissions)
+        .innerJoin(roles, eq(roles.id, rolesToPermissions.roleId))
+        .innerJoin(users, eq(users.roleId, roles.id))
+        .groupBy(users.id),
+    );
+
+    return await this.drizzle
+      .with(sq)
+      .select({
+        ...usersColumns,
+        permissionCount: sq.permissionCount,
+        userInfo: userInfosColumns,
+      })
+      .from(users)
+      .innerJoin(sq, eq(users.id, sq.userId))
+      .innerJoin(userInfos, eq(users.userInfoId, userInfos.id));
   }
 
   private async getUserWithRelations(userId: number) {
