@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["omitApi"]
 }
 
@@ -16,10 +16,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  role     Role      @relation(fields: [roleId], references: [id])
-  roleId   Int
-  userInfo UserInfo @relation(fields: [userInfoId], references: [id], onDelete: Cascade)
-  userInfoId Int    @unique
+  role       Role     @relation(fields: [roleId], references: [id])
+  roleId     Int
+  userInfo   UserInfo @relation(fields: [userInfoId], references: [id], onDelete: Cascade)
+  userInfoId Int      @unique
 
   @@map("prisma_users")
 }
@@ -31,7 +31,7 @@ model UserInfo {
   birthYear Int
   name      String?
 
-  user   User?
+  user User?
 
   @@map("prisma_user_infos")
 }

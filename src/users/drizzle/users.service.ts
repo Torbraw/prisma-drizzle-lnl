@@ -65,6 +65,21 @@ export class UsersService {
     return this.getUserWithRelations(id);
   }
 
+  public async delete(id: number): Promise<void> {
+    await this.drizzle.transaction(async (trx) => {
+      const userInfoId = await trx
+        .select({
+          userInfoId: users.userInfoId,
+        })
+        .from(users)
+        .where(eq(users.id, id))
+        .then((r) => r[0].userInfoId);
+
+      await trx.delete(users).where(eq(users.id, id));
+      await trx.delete(userInfos).where(eq(userInfos.id, userInfoId));
+    });
+  }
+
   public async findOne(id: number): Promise<DrizzleUserWithAge> {
     const { birthYear, ...rest } = userInfosColumns;
 

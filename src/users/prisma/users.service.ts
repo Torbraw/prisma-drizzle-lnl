@@ -42,22 +42,11 @@ export class UsersService {
     return await this.prisma.user.update({ where: { id }, data, include: PrismaUserWithRelationsInclude });
   }
 
-  public async findAll(query: PrismaSearchQuery): Promise<PrismaFindAllResponse> {
-    const findManyArgs = this.getPrismaArgsFromQuery(query);
-
-    const [users, totalCount] = await this.prisma.$transaction([
-      this.prisma.user.findMany({
-        ...findManyArgs,
-        include: {
-          userInfo: true,
-        },
-      }),
-      this.prisma.user.count(),
-    ]);
-    return {
-      users,
-      totalCount,
-    };
+  public async delete(id: number): Promise<void> {
+    await this.prisma.$transaction(async (tx) => {
+      const deletedUser = await tx.user.delete({ where: { id } });
+      await tx.userInfo.delete({ where: { id: deletedUser.userInfoId } });
+    });
   }
 
   public async findOne(id: number): Promise<PrismaUserWithAge> {
@@ -75,6 +64,24 @@ export class UsersService {
     delete userInfo.birthYear;
 
     return { ...result, userInfo: { ...userInfo, age } };
+  }
+
+  public async findAll(query: PrismaSearchQuery): Promise<PrismaFindAllResponse> {
+    const findManyArgs = this.getPrismaArgsFromQuery(query);
+
+    const [users, totalCount] = await this.prisma.$transaction([
+      this.prisma.user.findMany({
+        ...findManyArgs,
+        include: {
+          userInfo: true,
+        },
+      }),
+      this.prisma.user.count(),
+    ]);
+    return {
+      users,
+      totalCount,
+    };
   }
 
   public async findAllWithMaturity(): Promise<PrismaUserWithMaturity[]> {

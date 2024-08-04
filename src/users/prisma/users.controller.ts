@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ValibotValidationPipe } from 'src/lib/valibot-validation.pipe';
 import { PrismaSearchQuerySchema, PrismaCreateUserSchema, PrismaUpdateUserSchema } from 'src/lib/schemas';
@@ -19,6 +19,11 @@ export class UsersController {
     @Body(new ValibotValidationPipe(PrismaUpdateUserSchema)) data: PrismaUpdateUser,
   ) {
     return await this.usersService.update(id, data);
+  }
+
+  @Delete(':id')
+  public async delete(@Param('id', ParseIntPipe) id: number) {
+    await this.usersService.delete(id);
   }
 
   @Get()
