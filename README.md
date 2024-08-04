@@ -4,6 +4,8 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## What's included
 
+- Swagger does not works with types, so it's not included in this project. You can always create models manually or use a generator to create models from the types/schema
+
 ### Global (for both Prisma & Drizzle)
 
 - Docker compose with mysql database
@@ -23,6 +25,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 - Cte query `findAllWithPermissionsCount()`
 - Exclude fields from response `findOne()`
 - Add fields to response `findOne()`
+- "Cascade" delete `delete()`
 
 ### Prisma
 
@@ -31,25 +34,14 @@ Prisma &amp; Drizzle lunch &amp; learn
   - Includes pagination
   - Includes sorting (keys are not validated)
   - Includes search (not validated JSON string, follow prisma where clause and must be encoded)
-- Lots of feature, but some keys one are still mising (like cte queries)
-- Hard to do stuffs outside of the "basic" workflow (need to use raw queries)
-- Pretty easy to do "CRUD" operations
 
 ### Drizzle
 
 - Omit password field from User
 - `findAll()` only include paginations, too hard to make it work with generic search/sorting, probably feasible with a lot of work
-- A plugin exist to create validation schemas from the database schema, but the one for valibot is not up to date [pr](https://github.com/drizzle-team/drizzle-orm/pull/2481)
-- Migrations are not the best, clearly designed for `push` workflow (for exemple, if a migration fails midway, you need to manually revert and apply the migrations)
-- Drizzle is less mature than Prisma, but in active development
-- SQL like queries
-  - More control over the queries, but more verbose
-  - Easy to do stuff outside of the "basic" workflow
-  - More verbose to do "CRUD" operations
-  - Typing is exceptional, but doing generic things while keeping typesafety is harder/impossible
-- Relationnal queries #TODO
+- Both core and relational queries
 
-## Prisma specific
+## Prisma
 
 - `npx prisma studio` will open the studio to see the data in the database
 - `npx prisma format` will format the schema file
@@ -59,10 +51,18 @@ Prisma &amp; Drizzle lunch &amp; learn
 - `npx prisma migrate deploy` will apply the migration to the database without creating a migration file (qa, staging, production)
 - `npx prisma migrate reset` will reset the database and apply all migrations and seed data
 - `npx prisma db push` will apply the schema to the database without migration, useful for prototyping locally before using migrations [docs](https://www.prisma.io/docs/orm/prisma-migrate/workflows/prototyping-your-schema)
-- How to do down migrations [docs](https://www.prisma.io/docs/orm/prisma-migrate/workflows/generating-down-migrations)
-- Lots of community generators [here](https://www.prisma.io/docs/orm/prisma-schema/overview/generators#community-generators)
+- No automatic down migrations. How to do down migrations [docs](https://www.prisma.io/docs/orm/prisma-migrate/workflows/generating-down-migrations)
 
-## Drizzle specific
+### General comments
+
+- Lots of community generators [here](https://www.prisma.io/docs/orm/prisma-schema/overview/generators#community-generators)
+- Lots of feature, but some keys one are still mising (like cte queries)
+- Really mature with lots of documentation
+- Hard to do stuffs outside of the "basic" workflow (need to use raw queries)
+- Really easy to do simple "CRUD" operations
+- Schema definition is simple but lacks "raw" sql options
+
+## Drizzle
 
 - `npx drizzle-kit studio` will open the studio to see the data in the database
 - No build-in seed command, use .ts file to seed the database (`npm run drizzle:seed` in this project)
@@ -72,18 +72,22 @@ Prisma &amp; Drizzle lunch &amp; learn
 - `npx drizzle-kit push` will apply the schema to the database without migration, useful for prototyping locally before using migrations
 - There is not reset command
 - There is no down migrations but it is in the [work](https://github.com/drizzle-team/drizzle-orm/issues/2352)
+
+### General comments
+
 - Drizzle has a config file `drizzle.config.ts`, [ref](https://orm.drizzle.team/kit-docs/config-reference)
-
-## Lunch & Learn Agenda
-
-- Swagger does not works with types, so it's not included in this project. You can always create models manually or use a generator to create models from the types/schema
-- See exceptions/logs
-- See validations
-- See studio
-- See seeding
-- See schemas differences
-- See queries differences (transactions, raw queries, pagination, relations, etc)
-- See generic search (Prisma & Drizzle not made for this, better to use typesafe query builder)
+- A plugin exist to create validation schemas from the database schema, but the one for valibot is not up to date [pr](https://github.com/drizzle-team/drizzle-orm/pull/2481)
+- Migrations are not the best, clearly designed for `push` workflow (for exemple, if a migration fails midway, you need to manually revert and apply the migrations), update is in the [work](https://github.com/drizzle-team/drizzle-orm/discussions/2624)
+- Schema definitions is verbose but similar to SQL
+- Core queries (sql likes)
+  - More control over the queries, but more verbose
+  - Easy to do stuff outside of the "basic" workflow
+  - More verbose to do "CRUD" operations
+  - Typing is exceptional, but doing generic things while keeping typesafety is harder/impossible
+  - They're is a way to return information from the query, but not supported in mysql
+- Relationnal queries (v2 on the [way](https://github.com/drizzle-team/drizzle-orm/discussions/2316))
+  - Only for querying, not for creating/updating
+  - Schema relations are applications level only, not enforced by the database
 
 ## How to run locally
 
@@ -92,7 +96,6 @@ Prisma &amp; Drizzle lunch &amp; learn
 - `npm run prisma:generate` to generate the Prisma client
 - `npm run prisma:migrate-deploy` to apply the migrations
 - `npm run prisma:seed` to seed the database
-- `npm run drizzle:generate` to generate the Drizzle migrations
 - `npm run drizzle:migrate` to apply the Drizzle migrations
 - `npm run drizzle:seed` to seed the database
 - `npm run dev` to start the server
