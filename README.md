@@ -4,7 +4,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## What's included
 
-- Swagger does not works with types, so it's not included in this project. You can always create models manually or use a generator to create models from the types/schema
+Swagger does not works with types, so it's not included in this project. You can always create models manually or use a generator to create models from the types/schema
 
 ### Global (for both Prisma & Drizzle)
 
@@ -43,6 +43,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## Prisma
 
+- [Documentation](https://www.prisma.io/docs/)
 - `npx prisma format` will format the schema file
 - `npx prisma studio` will open the studio to see the data in the database
 - `npx prisma db seed` will seed the database with the data in the seed file specified in package.json
@@ -56,14 +57,14 @@ Prisma &amp; Drizzle lunch &amp; learn
 ### General comments
 
 - Lots of community generators [here](https://www.prisma.io/docs/orm/prisma-schema/overview/generators#community-generators)
-- Lots of feature, but some keys one are still mising (like cte queries)
-- Really mature with lots of documentation
+- Really mature with lots of feature/documentation, but some keys one are still mising (like cte queries)
 - Hard to do stuffs outside of the "basic" workflow (need to use raw queries)
 - Really easy to do simple "CRUD" operations
 - Schema definition is simple but lacks "raw" sql options
 
 ## Drizzle
 
+- [Documentation](https://orm.drizzle.team/docs/overview)
 - `npx drizzle-kit studio` will open the studio to see the data in the database
 - No build-in seed command, use .ts file to seed the database (`npm run drizzle:seed` in this project)
 - `npx drizzle-kit generate` will generate migrations based on the schema file
@@ -72,10 +73,10 @@ Prisma &amp; Drizzle lunch &amp; learn
 - `npx drizzle-kit push` will apply the schema to the database without migration, useful for prototyping locally before using migrations
 - There is not reset command
 - There is no down migrations but it is in the [work](https://github.com/drizzle-team/drizzle-orm/issues/2352)
+- Drizzle has a config file `drizzle.config.ts` to configure some options
 
 ### General comments
 
-- Drizzle has a config file `drizzle.config.ts`, [ref](https://orm.drizzle.team/kit-docs/config-reference)
 - A plugin exist to create validation schemas from the database schema, but the one for valibot is not up to date [pr](https://github.com/drizzle-team/drizzle-orm/pull/2481)
 - Migrations are not the best, clearly designed for `push` workflow (for exemple, if a migration fails midway, you need to manually revert and apply the migrations), update is in the [work](https://github.com/drizzle-team/drizzle-orm/discussions/2624)
 - Schema definitions is verbose but similar to SQL
