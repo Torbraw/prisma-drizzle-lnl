@@ -1,10 +1,10 @@
 import { drizzle } from 'drizzle-orm/mysql2';
 import { createConnection } from 'mysql2/promise';
-import { permissions, roles, rolesToPermissions } from './schema';
+import { permissions, roles, rolesToPermissions, userInfos, users } from './schema';
 import { PERMISSION_TYPES } from '../const';
 import 'dotenv/config';
 
-const defaultPermissions = [
+const defaultPermissions: (typeof permissions.$inferInsert)[] = [
   {
     id: 1,
     name: 'seeUsers',
@@ -32,7 +32,7 @@ const defaultPermissions = [
   },
 ];
 
-const defaultRoles = [
+const defaultRoles: (typeof roles.$inferInsert)[] = [
   {
     id: 1,
     name: 'admin',
@@ -45,7 +45,7 @@ const defaultRoles = [
   },
 ];
 
-const defaultRoleToPermission = [
+const defaultRoleToPermission: (typeof rolesToPermissions.$inferInsert)[] = [
   {
     permissionId: 1,
     roleId: 1,
@@ -80,6 +80,80 @@ const defaultRoleToPermission = [
   },
 ];
 
+const defaultUserInfos: (typeof userInfos.$inferInsert)[] = [
+  {
+    id: 1,
+    address: '1234 rue de la rue',
+    birthYear: 2000,
+    phone: '123-456-7890',
+    name: 'Maxime',
+  },
+  {
+    id: 2,
+    address: '1234 rue de la rue',
+    birthYear: 2020,
+    phone: '123-456-7890',
+    name: 'Maxime',
+  },
+  {
+    id: 3,
+    address: '1234 rue de la rue',
+    birthYear: 1998,
+    phone: '123-456-7890',
+    name: 'Maxime',
+  },
+  {
+    id: 4,
+    address: '1234 rue de la rue',
+    birthYear: 1990,
+    phone: '123-456-7890',
+  },
+  {
+    id: 5,
+    address: '1234 rue de la rue',
+    birthYear: 2015,
+    phone: '123-456-7890',
+  },
+];
+
+const defaultusers: (typeof users.$inferInsert)[] = [
+  {
+    id: 1,
+    email: 'maxime+1@altevo.ca',
+    password: '$Dev12345',
+    roleId: 1,
+    userInfoId: 1,
+  },
+  {
+    id: 2,
+    email: 'maxime+2@altevo.ca',
+    password: '$Dev12345',
+    roleId: 1,
+    userInfoId: 2,
+  },
+  {
+    id: 3,
+    email: 'maxime+3@altevo.ca',
+    password: '$Dev12345',
+    roleId: 1,
+    userInfoId: 3,
+  },
+  {
+    id: 4,
+    email: 'maxime+4@altevo.ca',
+    password: '$Dev12345',
+    roleId: 2,
+    userInfoId: 4,
+  },
+  {
+    id: 5,
+    email: 'maxime+5@altevo.ca',
+    password: '$Dev12345',
+    roleId: 2,
+    userInfoId: 5,
+  },
+];
+
 async function main() {
   const connection = await createConnection({
     uri: process.env.DATABASE_URL,
@@ -92,6 +166,10 @@ async function main() {
   await db.insert(roles).values(defaultRoles);
 
   await db.insert(rolesToPermissions).values(defaultRoleToPermission);
+
+  await db.insert(userInfos).values(defaultUserInfos);
+
+  await db.insert(users).values(defaultusers);
 
   await connection.end();
   connection.destroy();

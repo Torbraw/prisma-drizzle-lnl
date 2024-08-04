@@ -578,7 +578,7 @@
             "headers": [],
             "body": {
               "mode": "json",
-              "json": "{\n  \"password\": \"$Dev12345\",\n  \"userInfo\": {\n    \"update\": {\n      \"address\": \"Montréal1\"\n    }\n  },\n  \"role\": {\n    \"connect\": {\n      \"id\": 5\n    }\n  }\n}",
+              "json": "{\n  \"password\": \"$Dev12345\",\n  \"userInfo\": {\n    \"update\": {\n      \"address\": \"Montréal1\"\n    }\n  },\n  \"role\": {\n    \"connect\": {\n      \"id\": 1\n    }\n  }\n}",
               "formUrlEncoded": [],
               "multipartForm": []
             },

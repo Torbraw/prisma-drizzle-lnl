@@ -43,13 +43,13 @@ Prisma &amp; Drizzle lunch &amp; learn
 
 ## Prisma
 
-- `npx prisma studio` will open the studio to see the data in the database
 - `npx prisma format` will format the schema file
-- `npx prisma generate` will generate the client in `node_modules/@prisma/client` and can be imported in the code for type safety
+- `npx prisma studio` will open the studio to see the data in the database
 - `npx prisma db seed` will seed the database with the data in the seed file specified in package.json
+- `npx prisma generate` will generate the client in `node_modules/@prisma/client` and can be imported in the code for type safety
 - `npx prisma migrate dev` will create a migration and apply it to the database, you pass the `--name` flag to give a name to the migration (or it will be prompted). Will also generate the client
 - `npx prisma migrate deploy` will apply the migration to the database without creating a migration file (qa, staging, production)
-- `npx prisma migrate reset` will reset the database and apply all migrations and seed data
+- `npx prisma migrate reset` will reset the database, apply all migrations and seed data
 - `npx prisma db push` will apply the schema to the database without migration, useful for prototyping locally before using migrations [docs](https://www.prisma.io/docs/orm/prisma-migrate/workflows/prototyping-your-schema)
 - No automatic down migrations. How to do down migrations [docs](https://www.prisma.io/docs/orm/prisma-migrate/workflows/generating-down-migrations)
 
