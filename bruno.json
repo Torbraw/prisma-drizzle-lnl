@@ -1,0 +1,615 @@
+{
+  "name": "L&L",
+  "version": "1",
+  "items": [
+    {
+      "type": "folder",
+      "name": "Drizzle",
+      "items": [
+        {
+          "type": "http",
+          "name": "Create",
+          "seq": 1,
+          "request": {
+            "url": "http://localhost:3000/drizzle/users",
+            "method": "POST",
+            "headers": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"email\": \"maxime+3@altevo.ca\",\n  \"password\": \"$Dev12345\",\n  \"isActive\": true,\n  \"roleId\": 1,\n  \"userInfo\": {\n    \"address\": \"Montréal\",\n    \"phone\": \"5555555555\",\n    \"name\": \"Maxime\",\n    \"birthYear\": 1998\n  }\n}",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get",
+          "seq": 2,
+          "request": {
+            "url": "http://localhost:3000/drizzle/users/{{id}}",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {
+              "req": [
+                {
+                  "name": "id",
+                  "value": "1",
+                  "enabled": true,
+                  "local": false
+                }
+              ]
+            },
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Gets Maturity",
+          "seq": 4,
+          "request": {
+            "url": "http://localhost:3000/drizzle/users/maturity",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Gets PermissionCount",
+          "seq": 5,
+          "request": {
+            "url": "http://localhost:3000/drizzle/users/permissions-count",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Gets",
+          "seq": 6,
+          "request": {
+            "url": "http://localhost:3000/drizzle/users?page=1&limit=10",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": [
+              {
+                "name": "page",
+                "value": "1",
+                "enabled": true
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "enabled": true
+              }
+            ]
+          }
+        },
+        {
+          "type": "http",
+          "name": "Update",
+          "seq": 3,
+          "request": {
+            "url": "http://localhost:3000/drizzle/users/{{id}}",
+            "method": "PUT",
+            "headers": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"password\": \"$Dev12345\",\n  \"userInfoId\": 1,\n  \"roleId\": 1,\n  \"userInfo\": {\n    \"address\": \"Montréal2\"\n  }\n}",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {
+              "req": [
+                {
+                  "name": "id",
+                  "value": "1",
+                  "enabled": true,
+                  "local": false
+                }
+              ]
+            },
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Delete",
+          "seq": 7,
+          "request": {
+            "url": "http://localhost:3000/drizzle/users/{{id}}",
+            "method": "DELETE",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {
+              "req": [
+                {
+                  "name": "id",
+                  "value": "1",
+                  "enabled": true,
+                  "local": false
+                }
+              ]
+            },
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "folder",
+          "name": "Relations",
+          "items": [
+            {
+              "type": "http",
+              "name": "Get",
+              "seq": 1,
+              "request": {
+                "url": "http://localhost:3000/drizzle/users/relations/{{id}}",
+                "method": "GET",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "none",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": ""
+                  }
+                },
+                "script": {},
+                "vars": {
+                  "req": [
+                    {
+                      "name": "id",
+                      "value": "1",
+                      "enabled": true,
+                      "local": false
+                    }
+                  ]
+                },
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            },
+            {
+              "type": "http",
+              "name": "Gets",
+              "seq": 2,
+              "request": {
+                "url": "http://localhost:3000/drizzle/users/relations?page=1&limit=10",
+                "method": "GET",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "none",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": ""
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": [
+                  {
+                    "name": "page",
+                    "value": "1",
+                    "enabled": true
+                  },
+                  {
+                    "name": "limit",
+                    "value": "10",
+                    "enabled": true
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "Prisma",
+      "items": [
+        {
+          "type": "http",
+          "name": "Create",
+          "seq": 1,
+          "request": {
+            "url": "http://localhost:3000/prisma/users",
+            "method": "POST",
+            "headers": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"email\": \"maxime+3@altevo.ca\",\n  \"password\": \"$Dev12345\",\n  \"isActive\": true,\n  \"role\": {\n    \"connect\": {\n      \"id\": 1\n    }\n  },\n  \"userInfo\": {\n    \"create\": {\n      \"address\": \"Montréal\",\n      \"phone\": \"5555555555\",\n      \"name\": \"Maxime\",\n      \"birthYear\": 1998\n    }\n  }\n}",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Delete",
+          "seq": 7,
+          "request": {
+            "url": "http://localhost:3000/prisma/users/{{id}}",
+            "method": "DELETE",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {
+              "req": [
+                {
+                  "name": "id",
+                  "value": "1",
+                  "enabled": true,
+                  "local": false
+                }
+              ]
+            },
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get",
+          "seq": 3,
+          "request": {
+            "url": "http://localhost:3000/prisma/users/{{id}}",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {
+              "req": [
+                {
+                  "name": "id",
+                  "value": "1",
+                  "enabled": true,
+                  "local": false
+                }
+              ]
+            },
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Gets Maturity",
+          "seq": 5,
+          "request": {
+            "url": "http://localhost:3000/prisma/users/maturity",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Gets PermissionCount",
+          "seq": 6,
+          "request": {
+            "url": "http://localhost:3000/prisma/users/permissions-count",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Gets",
+          "seq": 2,
+          "request": {
+            "url": "http://localhost:3000/prisma/users?page=1&limit=10&sort=userInfo.birthYear:desc&search=%7B%22email%22%3A%22maxime%2B4%40altevo.ca%22%7D",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": [
+              {
+                "name": "page",
+                "value": "1",
+                "enabled": true
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "enabled": true
+              },
+              {
+                "name": "sort",
+                "value": "userInfo.birthYear:desc",
+                "enabled": true
+              },
+              {
+                "name": "search",
+                "value": "{\"email\":\"maxime+4@altevo.ca\"}",
+                "enabled": true
+              }
+            ]
+          }
+        },
+        {
+          "type": "http",
+          "name": "Update",
+          "seq": 4,
+          "request": {
+            "url": "http://localhost:3000/prisma/users/{{id}}",
+            "method": "PUT",
+            "headers": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"password\": \"$Dev12345\",\n  \"userInfo\": {\n    \"update\": {\n      \"address\": \"Montréal1\"\n    }\n  },\n  \"role\": {\n    \"connect\": {\n      \"id\": 5\n    }\n  }\n}",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {
+              "req": [
+                {
+                  "name": "id",
+                  "value": "1",
+                  "enabled": true,
+                  "local": false
+                }
+              ]
+            },
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        }
+      ]
+    }
+  ],
+  "environments": []
+}

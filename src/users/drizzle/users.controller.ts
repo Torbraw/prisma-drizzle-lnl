@@ -3,10 +3,14 @@ import { UsersService } from './users.service';
 import { ValibotValidationPipe } from 'src/lib/valibot-validation.pipe';
 import { DrizzleCreateUserSchema, DrizzleSearchQuerySchema, DrizzleUpdateUserSchema } from 'src/lib/schemas';
 import { DrizzleCreateUser, DrizzleSearchQuery, DrizzleUpdateUser } from 'src/lib/types';
+import { UsersRelationsService } from './users-relations.service';
 
 @Controller('drizzle/users')
 export class UsersController {
-  public constructor(private readonly usersService: UsersService) {}
+  public constructor(
+    private readonly usersService: UsersService,
+    private readonly userRelationsService: UsersRelationsService,
+  ) {}
 
   @Post()
   public async create(@Body(new ValibotValidationPipe(DrizzleCreateUserSchema)) data: DrizzleCreateUser) {
@@ -45,4 +49,18 @@ export class UsersController {
   public async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.usersService.findOne(id);
   }
+
+  //#region Relations
+
+  @Get('relations')
+  public async relationsFindAll(@Query(new ValibotValidationPipe(DrizzleSearchQuerySchema)) query: DrizzleSearchQuery) {
+    return await this.userRelationsService.findAll(query);
+  }
+
+  @Get('relations/:id')
+  public async relationsFindOne(@Param('id', ParseIntPipe) id: number) {
+    return await this.userRelationsService.findOne(id);
+  }
+
+  //#endregion
 }

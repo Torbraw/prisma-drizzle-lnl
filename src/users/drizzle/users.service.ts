@@ -1,8 +1,8 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { createHash } from 'crypto';
 import { count, eq, getTableColumns, sql } from 'drizzle-orm';
 import { MySqlSelectQueryBuilder } from 'drizzle-orm/mysql-core';
-import { MySql2Database } from 'drizzle-orm/mysql2';
+import { Drizzle } from 'src/lib/drizzle/drizzle.module';
 import { permissions, roles, rolesToPermissions, userInfos, users } from 'src/lib/drizzle/schema';
 import {
   DrizzleCreateUser,
@@ -20,7 +20,7 @@ const userInfosColumns = getTableColumns(userInfos);
 
 @Injectable()
 export class UsersService {
-  public constructor(@Inject('Drizzle') private readonly drizzle: MySql2Database) {}
+  public constructor(@Inject('Drizzle') private readonly drizzle: Drizzle) {}
 
   public async create(data: DrizzleCreateUser): Promise<DrizzleUserWithRelations> {
     const now = new Date();
@@ -96,6 +96,10 @@ export class UsersService {
       .innerJoin(rolesToPermissions, eq(roles.id, rolesToPermissions.roleId))
       .innerJoin(permissions, eq(rolesToPermissions.permissionId, permissions.id))
       .where(eq(users.id, id));
+
+    if (rows.length === 0) {
+      throw new NotFoundException('User not found');
+    }
 
     return {
       ...rows[0].user,

@@ -9,7 +9,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 ### Global (for both Prisma & Drizzle)
 
 - Docker compose with mysql database
-- [Bruno](https://www.usebruno.com/) schema for the API #TODO
+- [Bruno](https://www.usebruno.com/) schema for the API `bruno.json`
 - Table User, UserInfo, Role & Permission (all types of relationships)
 - Logger to log time spent on each request
 - Exception filter with custom error response
@@ -88,6 +88,8 @@ Prisma &amp; Drizzle lunch &amp; learn
 - Relationnal queries (v2 on the [way](https://github.com/drizzle-team/drizzle-orm/discussions/2316))
   - Only for querying, not for creating/updating
   - Schema relations are applications level only, not enforced by the database
+  - Aggregations are not supported in 'extras' fields for now
+  - No way to do CTE queries
 
 ## How to run locally
 

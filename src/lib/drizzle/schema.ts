@@ -13,6 +13,7 @@ import {
   primaryKey,
 } from 'drizzle-orm/mysql-core';
 import { PERMISSION_TYPES } from '../const';
+import { relations } from 'drizzle-orm';
 
 export const users = mysqlTable('drizzle_users', {
   id: serial('id').primaryKey(),
@@ -91,3 +92,43 @@ export type DrizzlePermission = typeof permissions.$inferSelect;
 
 export type DrizzleInsertUser = typeof users.$inferInsert;
 export type DrizzleInsertUserInfo = typeof userInfos.$inferInsert;
+
+//#region Relational queries specifics
+
+export const usersRelations = relations(users, ({ one }) => ({
+  userInfo: one(userInfos, {
+    fields: [users.userInfoId],
+    references: [userInfos.id],
+  }),
+  role: one(roles, {
+    fields: [users.roleId],
+    references: [roles.id],
+  }),
+}));
+
+// Not used but for example
+export const userInfosRelations = relations(userInfos, ({ one }) => ({
+  user: one(users),
+}));
+
+export const rolesRelations = relations(roles, ({ many }) => ({
+  users: many(users),
+  rolesToPermissions: many(rolesToPermissions),
+}));
+
+export const permissionsRelations = relations(permissions, ({ many }) => ({
+  permissionsToRoles: many(rolesToPermissions),
+}));
+
+export const rolesToPermissionsRelations = relations(rolesToPermissions, ({ one }) => ({
+  role: one(roles, {
+    fields: [rolesToPermissions.roleId],
+    references: [roles.id],
+  }),
+  permission: one(permissions, {
+    fields: [rolesToPermissions.permissionId],
+    references: [permissions.id],
+  }),
+}));
+
+//#endregion
