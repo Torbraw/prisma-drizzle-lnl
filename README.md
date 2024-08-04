@@ -37,7 +37,7 @@ Prisma &amp; Drizzle lunch &amp; learn
 ### Drizzle
 
 - Omit password field from User
-- `findAll()` only include paginations, too hard to make the typing work with the generic search
+- `findAll()` only include paginations, too hard to make it work with generic search/sorting, probably feasible with a lot of work
 - A plugin exist to create validation schemas from the database schema, but the one for valibot is not up to date [pr](https://github.com/drizzle-team/drizzle-orm/pull/2481)
 - Migrations are not the best, clearly designed for `push` workflow (for exemple, if a migration fails midway, you need to manually revert and apply the migrations)
 - Drizzle is less mature than Prisma, but in active development
