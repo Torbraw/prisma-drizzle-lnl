@@ -31,6 +31,7 @@ Prisma &amp; Drizzle lunch &amp; learn
   - Includes pagination
   - Includes sorting (keys are not validated)
   - Includes search (not validated JSON string, follow prisma where clause and must be encoded)
+- Lots of feature, but some keys one are still mising (like cte queries)
 - Hard to do stuffs outside of the "basic" workflow (need to use raw queries)
 - Pretty easy to do "CRUD" operations
 
