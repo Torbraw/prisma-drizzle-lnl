@@ -95,7 +95,9 @@ Swagger does not works with types, so it's not included in this project. You can
 ## How to run locally
 
 - `npm i` to install dependencies
+- Copy the `.env.example` to `.env`
 - `docker-compose up` to start the database
+- Import the `bruno.json` file in Bruno
 - `npm run prisma:generate` to generate the Prisma client
 - `npm run prisma:migrate-deploy` to apply the migrations
 - `npm run prisma:seed` to seed the database
